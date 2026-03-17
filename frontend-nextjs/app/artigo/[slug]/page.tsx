@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
         )}
 
-        <div className="relative z-10 max-w-5xl">
+        <div className="relative z-10 w-full lg:w-10/12">
           {article.category && (
             <div className="mb-8">
               <span className="inline-block px-3 py-1 bg-slate-100 text-slate-900 font-mono text-sm tracking-widest uppercase border-2 border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]">
@@ -59,7 +59,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
           )}
           
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 max-w-[15ch]">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 w-full">
             {article.title}
           </h1>
           
