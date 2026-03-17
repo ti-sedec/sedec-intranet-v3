@@ -12,13 +12,13 @@ export function Blocks({ blocks }: { blocks: ArticleBlock[] }) {
       {blocks.map((block) => {
         switch (block.__component) {
           case 'shared.rich-text':
-            return <RichText key={block.id} block={block} />;
+            return <RichText key={`${block.__component}-${block.id}`} block={block} />;
           case 'shared.quote':
-            return <Quote key={block.id} block={block} />;
+            return <Quote key={`${block.__component}-${block.id}`} block={block} />;
           case 'shared.media':
-            return <MediaBlock key={block.id} block={block} />;
+            return <MediaBlock key={`${block.__component}-${block.id}`} block={block} />;
           case 'shared.slider':
-            return <SliderBlock key={block.id} block={block} />;
+            return <SliderBlock key={`${block.__component}-${block.id}`} block={block} />;
           default:
             console.warn(`Block type not supported: ${(block as { __component?: string }).__component}`);
             return null;

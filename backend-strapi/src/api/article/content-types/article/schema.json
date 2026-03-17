@@ -13,15 +13,20 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 80,
+      "required": true
     },
     "description": {
       "type": "text",
-      "maxLength": 80
+      "maxLength": 200,
+      "required": true
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title",
+      "required": true,
+      "minLength": 5
     },
     "cover": {
       "type": "media",
