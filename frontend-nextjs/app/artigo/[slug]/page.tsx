@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { fetchArticleBySlug, getStrapiMedia } from '@/src/lib/strapi';
 import { Blocks } from '@/src/components/Blocks';
+import Header from '@/src/components/Header';
+import Footer from '@/src/components/Footer';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -29,8 +31,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }).format(new Date(article.publishedAt));
 
   return (
-    <article className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans">
-      {/* Typographic Brutalist Hero */}
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans flex flex-col">
+      <Header />
+      <article className="flex-grow">
+        {/* Typographic Brutalist Hero */}
       <header className="relative w-full min-h-[70vh] md:min-h-[85vh] flex flex-col justify-end pb-12 px-6 md:px-12 lg:px-24 mb-12 border-b-[3px] border-slate-900 dark:border-slate-100/50">
         {coverUrl && (
           <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
@@ -84,6 +88,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           Nenhum conteúdo disponível para este artigo.
         </div>
       )}
-    </article>
+      </article>
+      <Footer />
+    </div>
   );
 }
