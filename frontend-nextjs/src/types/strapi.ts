@@ -15,12 +15,59 @@ export interface StrapiImage {
   id: number;
   documentId: string;
   url: string;
-  formats: {
+  name?: string;
+  alternativeText?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+  formats?: {
     large?: StrapiImageFormat;
     medium?: StrapiImageFormat;
     small?: StrapiImageFormat;
     thumbnail?: StrapiImageFormat;
   };
+}
+
+export interface RichTextBlock {
+  __component: 'shared.rich-text';
+  id: number;
+  body: string;
+}
+
+export interface QuoteBlock {
+  __component: 'shared.quote';
+  id: number;
+  title: string;
+  body: string;
+}
+
+export interface MediaBlock {
+  __component: 'shared.media';
+  id: number;
+  file: StrapiImage;
+}
+
+export interface SliderBlock {
+  __component: 'shared.slider';
+  id: number;
+  files: StrapiImage[];
+}
+
+export type ArticleBlock = RichTextBlock | QuoteBlock | MediaBlock | SliderBlock;
+
+export interface Category {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  description: string | null;
+}
+
+export interface Author {
+  id: number;
+  documentId: string;
+  name: string;
+  email: string;
 }
 
 export interface Article {
@@ -31,6 +78,9 @@ export interface Article {
   description: string;
   publishedAt: string;
   cover: StrapiImage | null;
+  author?: Author;
+  category?: Category;
+  blocks?: ArticleBlock[];
 }
 
 export interface StrapiResponse<T> {

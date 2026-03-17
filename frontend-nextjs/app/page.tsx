@@ -60,7 +60,7 @@ export default async function Home({
           <div className="mb-4 inline-block bg-[#0f1115] text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
             Destaque
           </div>
-          <Link href={`/article/${heroArticle.slug}`} className="block group/link">
+          <Link href={`/artigo/${heroArticle.slug}`} className="block group/link">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-[0.9] mb-6 group-hover/link:text-[rgb(25,50,130)] transition-colors">
               {heroArticle.title}
             </h2>
@@ -74,7 +74,7 @@ export default async function Home({
             </span>
             <div className="w-12 h-[2px] bg-[rgb(25,50,130)]"></div>
             <Link
-              href={`/article/${heroArticle.slug}`}
+              href={`/artigo/${heroArticle.slug}`}
               className="hover:text-[rgb(25,50,130)] transition-colors"
             >
               Ler Matéria Completa →
@@ -107,7 +107,7 @@ export default async function Home({
                   <div className="text-xs font-bold uppercase tracking-widest text-[rgb(25,50,130)] mb-3">
                     {format(new Date(article.publishedAt), "dd MMM yyyy", { locale: ptBR })}
                   </div>
-                  <Link href={`/article/${article.slug}`}>
+                  <Link href={`/artigo/${article.slug}`}>
                     <h4 className="text-2xl font-bold leading-tight mb-4 uppercase tracking-tighter group-hover:text-[rgb(25,50,130)] transition-colors line-clamp-3">
                       {article.title}
                     </h4>
@@ -116,7 +116,7 @@ export default async function Home({
                     {article.description}
                   </p>
                   <Link
-                    href={`/article/${article.slug}`}
+                    href={`/artigo/${article.slug}`}
                     className="mt-auto inline-flex items-center text-sm font-bold uppercase tracking-widest hover:text-[rgb(25,50,130)] transition-colors before:content-[''] before:w-6 before:h-[2px] before:bg-current before:mr-3"
                   >
                     Ler Mais

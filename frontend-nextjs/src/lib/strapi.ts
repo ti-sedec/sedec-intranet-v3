@@ -27,6 +27,31 @@ export async function fetchArticles(page = 1, pageSize = 10) {
   return res.json();
 }
 
+export async function fetchArticleBySlug(slug: string) {
+  const query = new URLSearchParams({
+    'filters[slug][$eq]': slug,
+    'populate[blocks][on][shared.rich-text][populate]': '*',
+    'populate[blocks][on][shared.quote][populate]': '*',
+    'populate[blocks][on][shared.media][populate]': '*',
+    'populate[blocks][on][shared.slider][populate]': '*',
+    'populate[cover][fields][0]': 'url',
+    'populate[author][fields][1]': '*',
+    'populate[category][fields][2]': '*',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/articles?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch article (slug: ${slug})`);
+  }
+
+  const json = await res.json();
+  const articles = json.data;
+  return articles.length > 0 ? articles[0] : null;
+}
+
 export function getStrapiMedia(url: string | null) {
   if (url == null) {
     return null;
