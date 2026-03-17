@@ -10,6 +10,7 @@ services:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: strapiDB
       DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_ETERNAL_PORT: ${DATABASE_ETERNAL_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
@@ -46,7 +47,7 @@ services:
       #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
 
     ports:
-      - "5433:5432"
+      - "${DATABASE_ETERNAL_PORT}:5432"
     networks:
       - strapi
 
