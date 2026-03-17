@@ -1,0 +1,40 @@
+export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+
+export async function fetchArticles(page = 1, pageSize = 10) {
+  const query = new URLSearchParams({
+    'pagination[page]': page.toString(),
+    'pagination[pageSize]': pageSize.toString(),
+    'fields[0]': 'title',
+    'fields[1]': 'slug',
+    'fields[2]': 'description',
+    'fields[3]': 'publishedAt',
+    'populate[cover][fields][0]': 'id',
+    'populate[cover][fields][1]': 'documentId',
+    'populate[cover][fields][2]': 'url',
+    'populate[cover][fields][3]': 'formats',
+    'populate[cover][fields][4]': 'alternativeText',
+    'sort[0]': 'publishedAt:desc',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/articles?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch articles');
+  }
+
+  return res.json();
+}
+
+export function getStrapiMedia(url: string | null) {
+  if (url == null) {
+    return null;
+  }
+
+  if (url.startsWith('http') || url.startsWith('//')) {
+    return url;
+  }
+
+  return `${STRAPI_URL}${url}`;
+}
