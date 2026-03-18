@@ -1,0 +1,32 @@
+# Dependências
+node_modules/
+
+# Build e Cache
+.cache/
+build/
+.tmp/
+
+data/
+database/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Banco de dados local (SQLite)
+.tmp/data.db
+exports/
+
+# Variáveis de ambiente (Segurança!)
+.env
+.env.local
+.env.development
+.env.production
+
+# Uploads (Arquivos locais do Media Library)
+public/uploads/
+
+# Outros
+.DS_Store
+.git/
