@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { fetchArticles, getStrapiMedia } from "../src/lib/strapi";
+import { fetchArticles, fetchLatestArticle, getStrapiMedia } from "../src/lib/strapi";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { Article } from "../src/types/strapi";
@@ -14,9 +14,11 @@ export default async function Home({
 }) {
   const resolvedParams = await searchParams;
   const currentPage = Number(resolvedParams?.page) || 1;
-  const { data: articles, meta } = await fetchArticles(currentPage);
+  const heroArticle = await fetchLatestArticle();
+  
+  const { data: listArticles, meta } = await fetchArticles(currentPage, 9, heroArticle?.id);
 
-  if (!articles || articles.length === 0) {
+  if (!heroArticle && (!listArticles || listArticles.length === 0)) {
     return (
       <main className="min-h-screen bg-white text-[#0f1115] p-8 md:p-16 flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold uppercase tracking-tighter mb-4 text-center">Nenhuma Notícia Encontrada</h1>
@@ -25,56 +27,55 @@ export default async function Home({
     );
   }
 
-  const heroArticle = articles[0];
-  const listArticles = articles.slice(1);
-
   return (
     <main className="min-h-screen bg-white text-[#0f1115] selection:bg-[rgb(25,50,130)] selection:text-white">
       {/* Header Corporativo Minimalista */}
       <Header />
 
       {/* Hero Section Brutalista e Assimétrica (90/10 Focus) */}
-      <section className="relative w-full h-[85vh] border-b-2 border-[#0f1115] overflow-hidden group">
-        {heroArticle.cover && getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) && (
-          <Image
-            src={getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) as string}
-            alt={heroArticle.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            priority
-          />
-        )}
+      {heroArticle && (
+        <section className="relative w-full h-[85vh] border-b-2 border-[#0f1115] overflow-hidden group">
+          {heroArticle.cover && getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) && (
+            <Image
+              src={getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) as string}
+              alt={heroArticle.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              priority
+            />
+          )}
 
-        {/* Overlay em Mix-Blend e Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-transparent to-transparent opacity-90"></div>
-        <div className="absolute inset-0 bg-[rgb(25,50,130)] opacity-20 mix-blend-multiply"></div>
+          {/* Overlay em Mix-Blend e Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-transparent to-transparent opacity-90"></div>
+          <div className="absolute inset-0 bg-[rgb(25,50,130)] opacity-20 mix-blend-multiply"></div>
 
-        <div className="absolute bottom-0 left-0 w-full md:w-[85%] bg-white border-t-2 border-r-2 border-[#0f1115] p-8 md:p-16 transform transition-transform duration-500">
-          <div className="mb-4 inline-block bg-[#0f1115] text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
-            Destaque
-          </div>
-          <Link href={`/artigo/${heroArticle.slug}`} className="block group/link">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-[0.9] mb-6 group-hover/link:text-[rgb(25,50,130)] transition-colors">
-              {heroArticle.title}
-            </h2>
-          </Link>
-          <p className="text-lg md:text-2xl font-light mb-8 max-w-3xl line-clamp-2">
-            {heroArticle.description}
-          </p>
-          <div className="flex items-center gap-4 text-sm font-medium uppercase tracking-wider">
-            <span>
-              {format(new Date(heroArticle.publishedAt), "dd 'de' MMMM, yyyy", { locale: ptBR })}
-            </span>
-            <div className="w-12 h-[2px] bg-[rgb(25,50,130)]"></div>
-            <Link
-              href={`/artigo/${heroArticle.slug}`}
-              className="hover:text-[rgb(25,50,130)] transition-colors"
-            >
-              Ler Matéria Completa →
+          <div className="absolute bottom-0 left-0 w-full md:w-[85%] bg-white border-t-2 border-r-2 border-[#0f1115] p-8 md:p-16 transform transition-transform duration-500">
+            <div className="mb-4 inline-block bg-[#0f1115] text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
+              Destaque
+            </div>
+            <Link href={`/artigo/${heroArticle.slug}`} className="block group/link">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-[0.9] mb-6 group-hover/link:text-[rgb(25,50,130)] transition-colors">
+                {heroArticle.title}
+              </h2>
             </Link>
+            <p className="text-lg md:text-2xl font-light mb-8 max-w-3xl line-clamp-2">
+              {heroArticle.description}
+            </p>
+            <div className="flex items-center gap-4 text-sm font-medium uppercase tracking-wider">
+              <span>
+                {format(new Date(heroArticle.publishedAt), "dd 'de' MMMM, yyyy", { locale: ptBR })}
+              </span>
+              <div className="w-12 h-[2px] bg-[rgb(25,50,130)]"></div>
+              <Link
+                href={`/artigo/${heroArticle.slug}`}
+                className="hover:text-[rgb(25,50,130)] transition-colors"
+              >
+                Ler Matéria Completa →
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Grid de Feed de Notícias (Grid quebrado / Fragmentado) */}
       {listArticles.length > 0 && (

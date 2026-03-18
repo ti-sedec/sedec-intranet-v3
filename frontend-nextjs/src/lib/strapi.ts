@@ -1,7 +1,35 @@
 export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-export async function fetchArticles(page = 1, pageSize = 10) {
+export async function fetchLatestArticle() {
   const query = new URLSearchParams({
+    'pagination[page]': '1',
+    'pagination[pageSize]': '1',
+    'fields[0]': 'title',
+    'fields[1]': 'slug',
+    'fields[2]': 'description',
+    'fields[3]': 'publishedAt',
+    'populate[cover][fields][0]': 'id',
+    'populate[cover][fields][1]': 'documentId',
+    'populate[cover][fields][2]': 'url',
+    'populate[cover][fields][3]': 'formats',
+    'populate[cover][fields][4]': 'alternativeText',
+    'sort[0]': 'publishedAt:desc',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/articles?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch latest article');
+  }
+
+  const json = await res.json();
+  return json.data?.length > 0 ? json.data[0] : null;
+}
+
+export async function fetchArticles(page = 1, pageSize = 9, excludeId?: number) {
+  const params: Record<string, string> = {
     'pagination[page]': page.toString(),
     'pagination[pageSize]': pageSize.toString(),
     'fields[0]': 'title',
@@ -14,7 +42,13 @@ export async function fetchArticles(page = 1, pageSize = 10) {
     'populate[cover][fields][3]': 'formats',
     'populate[cover][fields][4]': 'alternativeText',
     'sort[0]': 'publishedAt:desc',
-  }).toString();
+  };
+
+  if (excludeId) {
+    params['filters[id][$ne]'] = excludeId.toString();
+  }
+
+  const query = new URLSearchParams(params).toString();
 
   const res = await fetch(`${STRAPI_URL}/api/articles?${query}`, {
     next: { revalidate: 60 },
