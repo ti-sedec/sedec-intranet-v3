@@ -97,3 +97,22 @@ export function getStrapiMedia(url: string | null) {
 
   return `${STRAPI_URL}${url}`;
 }
+
+export async function fetchGlobalAgendaUrl() {
+  const query = new URLSearchParams({
+    'fields': 'agendaUrl',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/global?${query}`, {
+    cache: 'no-store', // Always fetch latest for agenda per user request, or use revalidate. Let's not cache it heavily if they expect real-time URL updates, or use revalidate 60.
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    console.error('Failed to fetch global agenda url');
+    return null;
+  }
+
+  const json = await res.json();
+  return json.data?.agendaUrl || null;
+}
