@@ -1,3 +1,5 @@
+import { SUPPORT_EMAIL } from "../lib/constants";
+
 export default function Footer() {
   return (
     <footer className="bg-[#0f1115] text-white p-8 md:p-16 border-t-8 border-[rgb(25,50,130)] mt-auto w-full">
@@ -12,7 +14,7 @@ export default function Footer() {
         </div>
         <div className="text-right">
           <p className="font-bold uppercase tracking-widest mb-1">Contato Interno</p>
-          <p className="text-gray-400">suporte.ti@sedec.gov.br</p>
+          <p className="text-gray-400">{SUPPORT_EMAIL}</p>
         </div>
       </div>
     </footer>
