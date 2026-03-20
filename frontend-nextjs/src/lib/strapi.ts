@@ -1,4 +1,4 @@
-export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+export const STRAPI_URL = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
 export async function fetchLatestArticle() {
   const query = new URLSearchParams({
@@ -95,7 +95,8 @@ export function getStrapiMedia(url: string | null) {
     return url;
   }
 
-  return `${STRAPI_URL}${url}`;
+  const publicUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+  return `${publicUrl}${url}`;
 }
 
 export async function fetchGlobalAgendaUrl() {
