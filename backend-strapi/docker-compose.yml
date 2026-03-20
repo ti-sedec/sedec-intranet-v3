@@ -3,7 +3,7 @@ services:
   strapi:
     container_name: strapi
     build: .
-    image: strapi:latest
+    image: ${DOCKER_HUB_USER}/${DOCKER_IMAGE_NAME}:${API_VERSION}
     restart: unless-stopped
     env_file: .env
     environment:
@@ -24,7 +24,7 @@ services:
       - ./package.json:/opt/package.json
       - ./yarn.lock:/opt/yarn.lock
       - ./.env:/opt/app/.env
-      - ./public/uploads:/opt/app/public/uploads
+      - strapi-uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
     networks:
@@ -53,6 +53,8 @@ services:
 
 volumes:
   strapi-data:
+  strapi-uploads:
+
 
 networks:
   strapi:
