@@ -26,6 +26,7 @@ services:
 
   backend:
     container_name: sedec_strapi
+    image: ${DOCKER_HUB_USER}/strapi-intranet-backend:${APLICATION_VERSION}
     build:
       context: ./backend-strapi
       dockerfile: Dockerfile.prod
@@ -51,6 +52,7 @@ services:
 
   frontend:
     container_name: sedec_nextjs
+    image: ${DOCKER_HUB_USER}/strapi-intranet-frontend:${APLICATION_VERSION}
     build:
       context: ./frontend-nextjs
       dockerfile: Dockerfile
@@ -70,6 +72,7 @@ services:
 
   proxy:
     container_name: sedec_nginx
+    image: ${DOCKER_HUB_USER}/strapi-intranet-proxy:0.0.1
     build:
       context: ./nginx
       dockerfile: Dockerfile
@@ -82,6 +85,17 @@ services:
     depends_on:
       - frontend
       - backend
+
+  watchtower:
+    container_name: sedec_watchtower
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=86400
+      - TZ=America/Cuiaba
 
 networks:
   intranet:
