@@ -16,7 +16,6 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.39.0",
     "@strapi/plugin-users-permissions": "5.39.0",
     "@strapi/strapi": "5.39.0",
     "fs-extra": "^10.0.0",
@@ -38,7 +37,6 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "b24465f5-ac3c-4bbe-aef2-0a08ac9b68a0",
-    "installId": "56af38b625410ceae790d269b1b74eed5240c6b1d69a72ef8ff91394bc025e75"
+    "uuid": "b24465f5-ac3c-4bbe-aef2-0a08ac9b68a0"
   }
 }
