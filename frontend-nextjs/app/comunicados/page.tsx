@@ -3,6 +3,7 @@ import Footer from "@/src/components/Footer";
 import ComunicadosFeed from "@/src/components/ComunicadosFeed";
 import { fetchComunicados } from "@/src/lib/strapi";
 import Link from "next/link";
+import Pagination from "@/src/components/Pagination";
 
 export default async function ComunicadosPage({
   searchParams,
@@ -11,7 +12,7 @@ export default async function ComunicadosPage({
 }) {
   const resolvedParams = await searchParams;
   const currentPage = Number(resolvedParams?.page) || 1;
-  const { data: listComunicados, meta } = await fetchComunicados(currentPage, 15);
+  const { data: listComunicados, meta } = await fetchComunicados(currentPage, 5);
 
   return (
     <main className="min-h-screen bg-white text-[#0f1115] selection:bg-[rgb(25,50,130)] selection:text-white flex flex-col">
@@ -33,31 +34,15 @@ export default async function ComunicadosPage({
         <ComunicadosFeed comunicados={listComunicados} hideFooterLink={true} />
 
         {/* Pagination */}
-        {meta && meta.pagination.pageCount > 1 && (
-          <div className="mt-12 flex items-center justify-center gap-2">
-            {currentPage > 1 && (
-              <Link
-                href={`/comunicados?page=${currentPage - 1}`}
-                className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-              >
-                ← Anterior
-              </Link>
-            )}
-
-            <div className="brutalist-border px-6 py-3 font-bold bg-[#0f1115] text-white">
-              {currentPage} / {meta.pagination.pageCount}
-            </div>
-
-            {currentPage < meta.pagination.pageCount && (
-              <Link
-                href={`/comunicados?page=${currentPage + 1}`}
-                className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-              >
-                Próxima →
-              </Link>
-            )}
-          </div>
-        )}
+        <div className="mt-12">
+          {meta && meta.pagination.pageCount > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              pageCount={meta.pagination.pageCount}
+              basePath="/comunicados"
+            />
+          )}
+        </div>
       </section>
 
       <Footer />

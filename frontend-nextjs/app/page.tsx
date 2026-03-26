@@ -7,6 +7,7 @@ import type { Article } from "../src/types/strapi";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 import ComunicadosFeed from "@/src/components/ComunicadosFeed";
+import Pagination from "@/src/components/Pagination";
 
 export default async function Home({
   searchParams,
@@ -142,29 +143,11 @@ export default async function Home({
       {/* Paginação Brutalista */}
       {meta.pagination.pageCount > 1 && (
         <section className="p-8 md:p-16 pt-0 max-w-7xl mx-auto flex justify-center">
-          <div className="flex items-center gap-2">
-            {currentPage > 1 && (
-              <Link
-                href={`/?page=${currentPage - 1}`}
-                className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-              >
-                ← Anterior
-              </Link>
-            )}
-
-            <div className="brutalist-border px-6 py-3 font-bold bg-[#0f1115] text-white">
-              {currentPage} / {meta.pagination.pageCount}
-            </div>
-
-            {currentPage < meta.pagination.pageCount && (
-              <Link
-                href={`/?page=${currentPage + 1}`}
-                className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-              >
-                Próxima →
-              </Link>
-            )}
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            pageCount={meta.pagination.pageCount}
+            basePath="/"
+          />
         </section>
       )}
 
