@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { fetchArticles, fetchLatestArticle, getStrapiMedia } from "../src/lib/strapi";
+import { fetchArticles, fetchLatestArticle, getStrapiMedia, fetchComunicados } from "../src/lib/strapi";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { Article } from "../src/types/strapi";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
+import ComunicadosFeed from "@/src/components/ComunicadosFeed";
 
 export default async function Home({
   searchParams,
@@ -17,6 +18,7 @@ export default async function Home({
   const heroArticle = await fetchLatestArticle();
   
   const { data: listArticles, meta } = await fetchArticles(currentPage, 9, heroArticle?.id);
+  const { data: listComunicados } = await fetchComunicados(1, 5);
 
   if (!heroArticle && (!listArticles || listArticles.length === 0)) {
     return (
@@ -77,50 +79,65 @@ export default async function Home({
         </section>
       )}
 
-      {/* Grid de Feed de Notícias (Grid quebrado / Fragmentado) */}
-      {listArticles.length > 0 && (
-        <section className="p-8 md:p-16 max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-12 border-b-2 border-[#0f1115] pb-4">
-            <h3 className="text-3xl font-bold uppercase tracking-tighter">Últimas Atualizações</h3>
+      {/* Main Content Area: Comunicados + Notícias */}
+      <section className="p-8 md:p-16 max-w-[120rem] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
+          
+          {/* Coluna Esquerda: Comunicados */}
+          <div className="lg:col-span-3 w-full lg:sticky lg:top-8">
+            <ComunicadosFeed comunicados={listComunicados || []} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {listArticles.map((article: Article) => (
-              <article key={article.id} className="group flex flex-col h-full brutalist-border bg-[#fcfcfc] brutalist-shadow">
-                {article.cover && getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) && (
-                  <div className="relative aspect-[4/3] w-full border-b-2 border-[#0f1115] overflow-hidden">
-                    <Image
-                      src={getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) as string}
-                      alt={article.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                )}
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="text-xs font-bold uppercase tracking-widest text-[rgb(25,50,130)] mb-3">
-                    {format(new Date(article.publishedAt), "dd MMM yyyy", { locale: ptBR })}
-                  </div>
-                  <Link href={`/artigo/${article.slug}`}>
-                    <h4 className="text-2xl font-bold leading-tight mb-4 uppercase tracking-tighter group-hover:text-[rgb(25,50,130)] transition-colors line-clamp-3">
-                      {article.title}
-                    </h4>
-                  </Link>
-                  <p className="text-base text-gray-700 line-clamp-3 mb-6 flex-grow">
-                    {article.description}
-                  </p>
-                  <Link
-                    href={`/artigo/${article.slug}`}
-                    className="mt-auto inline-flex items-center text-sm font-bold uppercase tracking-widest hover:text-[rgb(25,50,130)] transition-colors before:content-[''] before:w-6 before:h-[2px] before:bg-current before:mr-3"
-                  >
-                    Ler Mais
-                  </Link>
-                </div>
-              </article>
-            ))}
+          {/* Coluna Direita: Feed de Notícias / Últimas Atualizações */}
+          <div className="lg:col-span-9 w-full flex flex-col">
+            <div className="flex items-center justify-between mb-8 border-b-2 border-[#0f1115] pb-4">
+              <h3 className="text-3xl font-bold uppercase tracking-tighter">Últimas Atualizações</h3>
+            </div>
+
+            {listArticles.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
+                {listArticles.map((article: Article) => (
+                  <article key={article.id} className="group flex flex-col h-full brutalist-border bg-[#fcfcfc] brutalist-shadow">
+                    {article.cover && getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) && (
+                      <div className="relative aspect-[4/3] w-full border-b-2 border-[#0f1115] overflow-hidden">
+                        <Image
+                          src={getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) as string}
+                          alt={article.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="text-xs font-bold uppercase tracking-widest text-[rgb(25,50,130)] mb-3">
+                        {format(new Date(article.publishedAt), "dd MMM yyyy", { locale: ptBR })}
+                      </div>
+                      <Link href={`/artigo/${article.slug}`}>
+                        <h4 className="text-2xl font-bold leading-tight mb-4 uppercase tracking-tighter group-hover:text-[rgb(25,50,130)] transition-colors line-clamp-3">
+                          {article.title}
+                        </h4>
+                      </Link>
+                      <p className="text-base text-gray-700 line-clamp-3 mb-6 flex-grow">
+                        {article.description}
+                      </p>
+                      <Link
+                        href={`/artigo/${article.slug}`}
+                        className="mt-auto inline-flex items-center text-sm font-bold uppercase tracking-widest hover:text-[rgb(25,50,130)] transition-colors before:content-[''] before:w-6 before:h-[2px] before:bg-current before:mr-3"
+                      >
+                        Ler Mais
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="min-h-[200px] flex text-gray-500 font-bold uppercase tracking-widest text-sm">
+                Nenhum artigo publicado no momento.
+              </div>
+            )}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Paginação Brutalista */}
       {meta.pagination.pageCount > 1 && (

@@ -18,7 +18,8 @@ export default function Header() {
       href: "/institucional",
       label: "Institucional",
       subLinks: [
-        { href: "/eventos", label: "Eventos" }
+        { href: "/eventos", label: "Eventos" },
+        { href: "/comunicados", label: "Comunicados" }
       ]
     },
   ];

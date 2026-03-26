@@ -117,3 +117,42 @@ export async function fetchGlobalAgendaUrl() {
   const json = await res.json();
   return json.data?.agendaUrl || null;
 }
+
+export async function fetchComunicados(page = 1, pageSize = 5) {
+  const query = new URLSearchParams({
+    'populate': '*',
+    'sort[0]': 'publishedAt:desc',
+    'pagination[page]': page.toString(),
+    'pagination[pageSize]': pageSize.toString(),
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/comunicados?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch comunicados');
+  }
+
+  return res.json();
+}
+
+export async function fetchComunicadoById(documentId: string) {
+  const query = new URLSearchParams({
+    'populate[blocks][on][shared.rich-text][populate]': '*',
+    'populate[blocks][on][shared.quote][populate]': '*',
+    'populate[blocks][on][shared.media][populate]': '*',
+    'populate[blocks][on][shared.slider][populate]': '*',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/comunicados/${documentId}?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch comunicado (documentId: ${documentId})`);
+  }
+
+  const json = await res.json();
+  return json.data;
+}

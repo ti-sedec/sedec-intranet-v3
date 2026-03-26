@@ -26,6 +26,8 @@ export function SliderBlock({ block }: { block: SliderBlockType }) {
           modules={[EffectFade, Navigation, Pagination, Autoplay]}
           effect="fade"
           autoHeight={true}
+          observer={true}
+          observeParents={true}
           loop={true}
           navigation={true}
           pagination={{ clickable: true }}
