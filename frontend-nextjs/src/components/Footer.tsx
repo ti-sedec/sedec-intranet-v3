@@ -12,9 +12,22 @@ export default function Footer() {
             Sistema oficial de notícias e intranet da Secretaria de Desenvolvimento Econômico.
           </p>
         </div>
-        <div className="text-right">
-          <p className="font-bold uppercase tracking-widest mb-1">Contato Interno</p>
-          <p className="text-gray-400">{SUPPORT_EMAIL}</p>
+        <div className="text-right flex flex-col items-end">
+          <div className="mb-6">
+            <p className="font-bold uppercase tracking-widest mb-1">Contato Interno</p>
+            <p className="text-gray-400">{SUPPORT_EMAIL}</p>
+          </div>
+          <div className="pt-4 border-t border-gray-800 w-full md:w-auto">
+            <a
+              href={process.env.NEXT_PUBLIC_STRAPI_URL || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-[rgb(25,50,130)] transition-colors flex items-center gap-2"
+            >
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Acesso Restrito / ADMIN
+            </a>
+          </div>
         </div>
       </div>
     </footer>
