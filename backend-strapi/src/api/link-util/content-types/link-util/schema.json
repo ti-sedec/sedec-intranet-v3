@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "links_uteis",
+  "info": {
+    "singularName": "link-util",
+    "pluralName": "links-uteis",
+    "displayName": "Link Útil"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "minLength": 2,
+      "required": true
+    },
+    "descricao": {
+      "type": "string",
+      "required": false
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}
