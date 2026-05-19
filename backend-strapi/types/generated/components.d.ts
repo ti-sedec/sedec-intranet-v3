@@ -14,7 +14,7 @@ export interface SharedMedia extends Struct.ComponentSchema {
 export interface SharedQuote extends Struct.ComponentSchema {
   collectionName: 'components_shared_quotes';
   info: {
-    displayName: 'Quote';
+    displayName: 'Coment\u00E1rio';
     icon: 'indent';
   };
   attributes: {
