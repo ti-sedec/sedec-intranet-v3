@@ -84,6 +84,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - nginx-ssl:/etc/nginx/ssl
     networks:
       - intranet
     depends_on:
@@ -108,3 +110,4 @@ networks:
 volumes:
   sedec-data:
   strapi-uploads:
+  nginx-ssl:
