@@ -11,18 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "mes": {
-      "type": "integer",
-      "required": true,
-      "min": 1,
-      "max": 12
-    },
     "nome": {
       "type": "string",
       "required": true
     },
-    "ano": {
-      "type": "integer",
+    "dataAniversario": {
+      "type": "date",
       "required": true
     }
   }

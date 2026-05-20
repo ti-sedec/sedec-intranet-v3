@@ -508,25 +508,16 @@ export interface ApiAniversarianteAniversariante
     draftAndPublish: true;
   };
   attributes: {
-    ano: Schema.Attribute.Integer & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dataAniversario: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::aniversariante.aniversariante'
     > &
       Schema.Attribute.Private;
-    mes: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 12;
-          min: 1;
-        },
-        number
-      >;
     nome: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -750,6 +741,45 @@ export interface ApiLinkUtilLinkUtil extends Struct.CollectionTypeSchema {
     url: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+  };
+}
+
+export interface ApiTutorialTutorial extends Struct.CollectionTypeSchema {
+  collectionName: 'tutoriais';
+  info: {
+    displayName: 'Tutorial';
+    pluralName: 'tutoriais';
+    singularName: 'tutorial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    conteudo: Schema.Attribute.DynamicZone<
+      [
+        'shared.slider',
+        'shared.seo',
+        'shared.rich-text',
+        'shared.quote',
+        'shared.media',
+      ]
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descricao: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tutorial.tutorial'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1273,6 +1303,7 @@ declare module '@strapi/strapi' {
       'api::comunicado.comunicado': ApiComunicadoComunicado;
       'api::global.global': ApiGlobalGlobal;
       'api::link-util.link-util': ApiLinkUtilLinkUtil;
+      'api::tutorial.tutorial': ApiTutorialTutorial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

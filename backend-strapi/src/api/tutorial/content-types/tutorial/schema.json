@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tutoriais",
+  "info": {
+    "singularName": "tutorial",
+    "pluralName": "tutoriais",
+    "displayName": "Tutorial"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "string",
+      "required": true
+    },
+    "conteudo": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.slider",
+        "shared.seo",
+        "shared.rich-text",
+        "shared.quote",
+        "shared.media"
+      ],
+      "required": true
+    }
+  }
+}
