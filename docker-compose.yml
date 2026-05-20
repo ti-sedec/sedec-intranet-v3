@@ -76,7 +76,7 @@ services:
 
   proxy:
     container_name: sedec_nginx
-    image: ${DOCKER_HUB_USER}/strapi-intranet-proxy:0.0.1
+    image: ${DOCKER_HUB_USER}/strapi-intranet-proxy:0.0.2
     build:
       context: ./nginx
       dockerfile: Dockerfile
