@@ -1,0 +1,17 @@
+node_modules
+.git
+.tmp
+.cache
+.strapi
+.strapi-updater.json
+.strapi-cloud.json
+dist
+build
+data
+*.log
+*.sqlite
+*.sqlite3
+.env
+.env.*
+!.env.example
+public/uploads
