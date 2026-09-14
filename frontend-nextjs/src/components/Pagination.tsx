@@ -15,35 +15,34 @@ export default function Pagination({
 }: PaginationProps) {
   if (pageCount <= 1) return null;
 
-  // Function to build URL properly depending on existing search params
   const getPageUrl = (page: number) => {
-    // If basePath already contains a '?', use '&' instead
     const separator = basePath.includes("?") ? "&" : "?";
     return `${basePath}${separator}page=${page}`;
   };
 
+  const buttonClass =
+    "no-underline font-mono text-[11px] font-semibold uppercase tracking-[0.1em] border border-[var(--color-border-strong-2)] rounded px-4 py-2.5 hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]";
+
   return (
-    <div className="flex items-center justify-center gap-2">
-      {currentPage > 1 && (
-        <Link
-          href={getPageUrl(currentPage - 1)}
-          className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-        >
+    <div className="flex items-center justify-center gap-3">
+      {currentPage > 1 ? (
+        <Link href={getPageUrl(currentPage - 1)} className={buttonClass}>
           ← Anterior
         </Link>
+      ) : (
+        <span className={`${buttonClass} opacity-40 pointer-events-none`}>← Anterior</span>
       )}
 
-      <div className="brutalist-border px-6 py-3 font-bold bg-[#0f1115] text-white">
+      <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.1em] px-4 py-2.5 rounded bg-[var(--color-ink)] text-white">
         {currentPage} / {pageCount}
       </div>
 
-      {currentPage < pageCount && (
-        <Link
-          href={getPageUrl(currentPage + 1)}
-          className="brutalist-border px-6 py-3 font-bold uppercase tracking-widest hover:bg-[rgb(25,50,130)] hover:text-white transition-colors"
-        >
+      {currentPage < pageCount ? (
+        <Link href={getPageUrl(currentPage + 1)} className={buttonClass}>
           Próxima →
         </Link>
+      ) : (
+        <span className={`${buttonClass} opacity-40 pointer-events-none`}>Próxima →</span>
       )}
     </div>
   );

@@ -15,6 +15,15 @@
       "type": "string",
       "required": true
     },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "grupo": {
+      "type": "string",
+      "required": false
+    },
     "descricao": {
       "type": "string",
       "required": true

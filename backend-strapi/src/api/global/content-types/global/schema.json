@@ -37,6 +37,14 @@
     },
     "agendaUrl": {
       "type": "string"
+    },
+    "contatoRamal": {
+      "type": "string",
+      "required": false
+    },
+    "contatoEmail": {
+      "type": "email",
+      "required": false
     }
   }
 }

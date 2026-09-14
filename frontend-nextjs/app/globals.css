@@ -2,47 +2,71 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-corporate-blue: rgb(25, 50, 130);
-  --color-corporate-dark: rgb(15, 30, 80);
-  --color-corporate-light: rgb(240, 244, 255);
-  
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #f6f4f0;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fbfaf7;
+
+  --color-ink: #171b26;
+  --color-ink-soft: #454b5a;
+  --color-body: #2b3040;
+  --color-muted: #5c6270;
+  --color-faint: #6b7080;
+  --color-faint-2: #8b8f9c;
+
+  --color-border: #e3ded4;
+  --color-border-strong: #d9d4c9;
+  --color-border-strong-2: #c9c3b6;
+
+  --color-accent: oklch(0.62 0.17 45);
+  --color-accent-strong: oklch(0.55 0.17 45);
+  --color-accent-soft: oklch(0.75 0.14 45);
+  --color-link: oklch(0.52 0.12 250);
+
+  --color-navy-panel: #1f2431;
+  --color-navy-border: #2c3242;
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f1115;
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #050505;
-    --foreground: #f0f0f0;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base Brutalist utility */
-.brutalist-border {
-  border: 2px solid var(--foreground);
+@layer base {
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
 }
 
-.brutalist-shadow {
-  box-shadow: 6px 6px 0px 0px var(--color-corporate-blue);
-  transition: all 0.2s ease;
-}
-
-.brutalist-shadow:hover {
-  box-shadow: 2px 2px 0px 0px var(--color-corporate-blue);
-  transform: translate(4px, 4px);
+::selection {
+  background: var(--color-accent);
+  color: #fff;
 }

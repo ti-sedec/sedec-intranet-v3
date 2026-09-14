@@ -1,16 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 import { RichTextBlock } from '@/src/types/strapi';
-import { BlockReveal } from './BlockReveal';
 
 export function RichText({ block }: { block: RichTextBlock }) {
   return (
-    <BlockReveal>
-      <div className="prose prose-lg dark:prose-invert prose-slate max-w-none 
-          prose-headings:font-bold prose-headings:tracking-tight
-          prose-a:text-blue-600 dark:prose-a:text-blue-400
-          prose-img:rounded-none">
-        <ReactMarkdown>{block.body}</ReactMarkdown>
-      </div>
-    </BlockReveal>
+    <div
+      className="prose prose-lg max-w-none prose-headings:font-[family-name:var(--font-display)] prose-headings:font-bold prose-headings:tracking-[-0.5px] prose-headings:text-[var(--color-ink)] prose-p:text-[var(--color-body)] prose-p:leading-[1.68] prose-a:text-[var(--color-link)]"
+    >
+      <ReactMarkdown>{block.body}</ReactMarkdown>
+    </div>
   );
 }

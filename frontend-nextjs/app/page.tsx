@@ -1,157 +1,119 @@
-import Image from "next/image";
-import Link from "next/link";
-import { fetchArticles, fetchLatestArticle, getStrapiMedia, fetchComunicados } from "../src/lib/strapi";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import type { Article } from "../src/types/strapi";
+import Link from "next/link";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
-import ComunicadosFeed from "@/src/components/ComunicadosFeed";
-import Pagination from "@/src/components/Pagination";
+import { ArticleCard } from "@/src/components/ArticleCard";
+import { BirthdaysSection } from "@/src/components/BirthdaysSection";
+import { QuickLinksAside } from "@/src/components/QuickLinksAside";
+import {
+  fetchArticles,
+  fetchAniversariantesDoMes,
+  fetchLinksUteis,
+} from "@/src/lib/strapi";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>;
-}) {
-  const resolvedParams = await searchParams;
-  const currentPage = Number(resolvedParams?.page) || 1;
-  const heroArticle = await fetchLatestArticle();
-  
-  const { data: listArticles, meta } = await fetchArticles(currentPage, 9, heroArticle?.id);
-  const { data: listComunicados } = await fetchComunicados(1, 5);
+export const dynamic = "force-dynamic";
 
-  if (!heroArticle && (!listArticles || listArticles.length === 0)) {
-    return (
-      <main className="min-h-screen bg-white text-[#0f1115] p-8 md:p-16 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold uppercase tracking-tighter mb-4 text-center">Nenhuma Notícia Encontrada</h1>
-        <p className="text-xl">Não há artigos publicados no momento.</p>
-      </main>
-    );
-  }
+export default async function Home() {
+  const [{ data: articles }, birthdays, links] = await Promise.all([
+    fetchArticles({ page: 1, pageSize: 8 }),
+    fetchAniversariantesDoMes(),
+    fetchLinksUteis(),
+  ]);
+
+  const today = format(new Date(), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR });
+  const featured = articles[0];
+  const secondary = articles.slice(1, 4);
+  const latest = articles.slice(1, 5);
 
   return (
-    <main className="min-h-screen bg-white text-[#0f1115] selection:bg-[rgb(25,50,130)] selection:text-white">
-      {/* Header Corporativo Minimalista */}
+    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
       <Header />
 
-      {/* Hero Section Brutalista e Assimétrica (90/10 Focus) */}
-      {heroArticle && (
-        <section className="relative w-full h-[85vh] border-b-2 border-[#0f1115] overflow-hidden group">
-          {heroArticle.cover && getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) && (
-            <Image
-              src={getStrapiMedia(heroArticle.cover.formats?.large?.url || heroArticle.cover.formats?.medium?.url || heroArticle.cover.url) as string}
-              alt={heroArticle.title}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              priority
-            />
-          )}
-
-          {/* Overlay em Mix-Blend e Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-transparent to-transparent opacity-90"></div>
-          <div className="absolute inset-0 bg-[rgb(25,50,130)] opacity-20 mix-blend-multiply"></div>
-
-          <div className="absolute bottom-0 left-0 w-full md:w-[85%] bg-white border-t-2 border-r-2 border-[#0f1115] p-8 md:p-16 transform transition-transform duration-500">
-            <div className="mb-4 inline-block bg-[#0f1115] text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
-              Destaque
-            </div>
-            <Link href={`/artigo/${heroArticle.slug}`} className="block group/link">
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-[0.9] mb-6 group-hover/link:text-[rgb(25,50,130)] transition-colors">
-                {heroArticle.title}
-              </h2>
-            </Link>
-            <p className="text-lg md:text-2xl font-light mb-8 max-w-3xl line-clamp-2">
-              {heroArticle.description}
-            </p>
-            <div className="flex items-center gap-4 text-sm font-medium uppercase tracking-wider">
-              <span>
-                {format(new Date(heroArticle.publishedAt), "dd 'de' MMMM, yyyy", { locale: ptBR })}
-              </span>
-              <div className="w-12 h-[2px] bg-[rgb(25,50,130)]"></div>
-              <Link
-                href={`/artigo/${heroArticle.slug}`}
-                className="hover:text-[rgb(25,50,130)] transition-colors"
+      {!featured ? (
+        <div className="max-w-[1280px] mx-auto px-6 py-24 text-center text-[var(--color-muted)]">
+          Nenhum artigo publicado no momento.
+        </div>
+      ) : (
+        <>
+          <section className="max-w-[1280px] mx-auto w-full px-6 pt-10 pb-2">
+            <div className="flex items-baseline gap-4 flex-wrap mb-6">
+              <h1
+                className="font-[family-name:var(--font-display)] font-extrabold m-0"
+                style={{ fontSize: "clamp(30px,4.4vw,52px)", letterSpacing: "-1.4px", lineHeight: 1 }}
               >
-                Ler Matéria Completa →
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Main Content Area: Comunicados + Notícias */}
-      <section className="p-8 md:p-16 max-w-[120rem] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
-          
-          {/* Coluna Esquerda: Comunicados */}
-          <div className="lg:col-span-3 w-full lg:sticky lg:top-8">
-            <ComunicadosFeed comunicados={listComunicados || []} />
-          </div>
-
-          {/* Coluna Direita: Feed de Notícias / Últimas Atualizações */}
-          <div className="lg:col-span-9 w-full flex flex-col">
-            <div className="flex items-center justify-between mb-8 border-b-2 border-[#0f1115] pb-4">
-              <h3 className="text-3xl font-bold uppercase tracking-tighter">Últimas Atualizações</h3>
+                Boletim interno
+              </h1>
+              <span className="font-mono text-xs tracking-[0.1em] uppercase text-[var(--color-faint)]">
+                {today}
+              </span>
             </div>
 
-            {listArticles.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
-                {listArticles.map((article: Article) => (
-                  <article key={article.id} className="group flex flex-col h-full brutalist-border bg-[#fcfcfc] brutalist-shadow">
-                    {article.cover && getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) && (
-                      <div className="relative aspect-[4/3] w-full border-b-2 border-[#0f1115] overflow-hidden">
-                        <Image
-                          src={getStrapiMedia(article.cover.formats?.medium?.url || article.cover.formats?.small?.url || article.cover.url) as string}
-                          alt={article.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      </div>
-                    )}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <div className="text-xs font-bold uppercase tracking-widest text-[rgb(25,50,130)] mb-3">
-                        {format(new Date(article.publishedAt), "dd MMM yyyy", { locale: ptBR })}
-                      </div>
-                      <Link href={`/artigo/${article.slug}`}>
-                        <h4 className="text-2xl font-bold leading-tight mb-4 uppercase tracking-tighter group-hover:text-[rgb(25,50,130)] transition-colors line-clamp-3">
-                          {article.title}
-                        </h4>
-                      </Link>
-                      <p className="text-base text-gray-700 line-clamp-3 mb-6 flex-grow">
-                        {article.description}
-                      </p>
-                      <Link
-                        href={`/artigo/${article.slug}`}
-                        className="mt-auto inline-flex items-center text-sm font-bold uppercase tracking-widest hover:text-[rgb(25,50,130)] transition-colors before:content-[''] before:w-6 before:h-[2px] before:bg-current before:mr-3"
-                      >
-                        Ler Mais
-                      </Link>
-                    </div>
-                  </article>
+            <div className="flex flex-wrap gap-7 items-start">
+              <ArticleCard article={featured} variant="featured" />
+
+              <div className="flex-[1_1_280px] min-w-0 flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-[var(--color-faint)] pb-2.5 border-b border-[var(--color-border-strong)]">
+                  Em destaque
+                </div>
+                {secondary.length === 0 ? (
+                  <p className="text-sm text-[var(--color-muted)] m-0">Nenhuma outra notícia publicada no momento.</p>
+                ) : (
+                  secondary.map((a) => (
+                    <ArticleCard key={a.id} article={a} variant="compact" />
+                  ))
+                )}
+              </div>
+            </div>
+          </section>
+
+          <BirthdaysSection birthdays={birthdays} />
+
+          <section className="max-w-[1280px] mx-auto w-full px-6 pt-14 pb-18 flex flex-wrap gap-12 items-start">
+            <div className="flex-[2_1_440px] min-w-0">
+              <div className="flex items-center justify-between gap-4 flex-wrap border-b-2 border-[var(--color-ink)] pb-3 mb-6">
+                <h2 className="font-[family-name:var(--font-display)] font-extrabold text-[26px] m-0" style={{ letterSpacing: "-0.7px" }}>
+                  Últimas notícias
+                </h2>
+                <Link
+                  href="/noticias"
+                  className="no-underline font-mono text-[11px] font-semibold uppercase tracking-[0.1em] border border-[var(--color-border-strong-2)] rounded px-3.5 py-2 hover:bg-[var(--color-ink)] hover:text-white hover:border-[var(--color-ink)]"
+                >
+                  Ver todas
+                </Link>
+              </div>
+              <div className="grid gap-6.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(248px, 1fr))" }}>
+                {latest.map((a) => (
+                  <ArticleCard key={a.id} article={a} variant="grid" />
                 ))}
               </div>
-            ) : (
-              <div className="min-h-[200px] flex text-gray-500 font-bold uppercase tracking-widest text-sm">
-                Nenhum artigo publicado no momento.
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+            </div>
 
-      {/* Paginação Brutalista */}
-      {meta.pagination.pageCount > 1 && (
-        <section className="p-8 md:p-16 pt-0 max-w-7xl mx-auto flex justify-center">
-          <Pagination
-            currentPage={currentPage}
-            pageCount={meta.pagination.pageCount}
-            basePath="/"
-          />
-        </section>
+            <aside className="flex-[1_1_280px] min-w-0 flex flex-col gap-8">
+              <QuickLinksAside links={links} />
+
+              <div className="rounded-md p-6 text-white" style={{ background: "var(--color-accent)" }}>
+                <span className="font-mono text-[10px] font-semibold tracking-[0.14em] uppercase opacity-85">
+                  Base de conhecimento
+                </span>
+                <h3 className="font-[family-name:var(--font-display)] font-bold text-xl leading-snug tracking-[-0.5px] mt-2.5 mb-2.5">
+                  Tutoriais dos sistemas internos
+                </h3>
+                <p className="text-sm leading-relaxed opacity-90 mt-0 mb-4">
+                  Passo a passo de requisições, plantões e emissão de relatórios.
+                </p>
+                <Link
+                  href="/tutoriais"
+                  className="no-underline inline-block bg-[var(--color-ink)] text-white rounded px-4 py-2.5 text-sm font-semibold"
+                >
+                  Abrir central de ajuda
+                </Link>
+              </div>
+            </aside>
+          </section>
+        </>
       )}
 
-      {/* Footer Minimalista */}
       <Footer />
     </main>
   );

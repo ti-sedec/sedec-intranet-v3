@@ -18,6 +18,10 @@
     "dataAniversario": {
       "type": "date",
       "required": true
+    },
+    "unidade": {
+      "type": "string",
+      "required": false
     }
   }
 }

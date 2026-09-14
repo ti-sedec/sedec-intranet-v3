@@ -39,6 +39,7 @@ export interface QuoteBlock {
   id: number;
   title: string;
   body: string;
+  atribuicao?: string;
 }
 
 export interface MediaBlock {
@@ -81,6 +82,49 @@ export interface Article {
   author?: Author;
   category?: Category;
   blocks?: ArticleBlock[];
+}
+
+export interface Tutorial {
+  id: number;
+  documentId: string;
+  titulo: string;
+  slug: string;
+  grupo: string | null;
+  descricao: string;
+  publishedAt: string;
+  conteudo?: ArticleBlock[];
+}
+
+export interface LinkUtil {
+  id: number;
+  documentId: string;
+  titulo: string;
+  grupo: string | null;
+  descricao: string | null;
+  url: string;
+}
+
+export interface Aniversariante {
+  id: number;
+  documentId: string;
+  nome: string;
+  dataAniversario: string;
+  unidade: string | null;
+}
+
+export interface About {
+  id: number;
+  documentId: string;
+  title: string;
+  blocks?: ArticleBlock[];
+}
+
+export interface GlobalSettings {
+  siteName: string;
+  siteDescription: string;
+  agendaUrl: string | null;
+  contatoRamal: string | null;
+  contatoEmail: string | null;
 }
 
 export interface StrapiResponse<T> {

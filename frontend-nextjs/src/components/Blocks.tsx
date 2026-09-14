@@ -8,7 +8,7 @@ export function Blocks({ blocks }: { blocks: ArticleBlock[] }) {
   if (!blocks || blocks.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-12 max-w-4xl mx-auto w-full px-6 py-12">
+    <div className="flex flex-col gap-10 max-w-[720px] w-full">
       {blocks.map((block) => {
         switch (block.__component) {
           case 'shared.rich-text':

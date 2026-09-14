@@ -1,19 +1,22 @@
 import { QuoteBlock } from '@/src/types/strapi';
-import { BlockReveal } from './BlockReveal';
 
 export function Quote({ block }: { block: QuoteBlock }) {
   return (
-    <BlockReveal>
-      <blockquote className="border-l-4 border-slate-900 dark:border-slate-100 pl-6 py-4 my-8 bg-slate-50 dark:bg-slate-900/50">
-        <p className="text-xl md:text-2xl font-medium text-slate-800 dark:text-slate-200 leading-snug">
-          &quot;{block.body}&quot;
-        </p>
-        {block.title && (
-          <footer className="mt-4 text-sm font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400">
-            — {block.title}
-          </footer>
-        )}
-      </blockquote>
-    </BlockReveal>
+    <blockquote
+      className="m-0 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-r-md px-7 py-6.5"
+      style={{ borderLeft: "4px solid var(--color-accent)" }}
+    >
+      {block.title && (
+        <div className="font-[family-name:var(--font-display)] font-bold text-xl leading-snug tracking-[-0.4px] mb-2.5">
+          {block.title}
+        </div>
+      )}
+      <p className="m-0 mb-3.5 text-[17px] leading-[1.6] text-[var(--color-body)]">{block.body}</p>
+      {block.atribuicao && (
+        <span className="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-[var(--color-faint)]">
+          {block.atribuicao}
+        </span>
+      )}
+    </blockquote>
   );
 }

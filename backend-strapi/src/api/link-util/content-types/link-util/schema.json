@@ -16,6 +16,10 @@
       "minLength": 2,
       "required": true
     },
+    "grupo": {
+      "type": "string",
+      "required": false
+    },
     "descricao": {
       "type": "string",
       "required": false

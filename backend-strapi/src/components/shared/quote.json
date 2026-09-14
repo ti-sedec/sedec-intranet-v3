@@ -11,6 +11,10 @@
     },
     "body": {
       "type": "text"
+    },
+    "atribuicao": {
+      "type": "string",
+      "required": false
     }
   }
 }
