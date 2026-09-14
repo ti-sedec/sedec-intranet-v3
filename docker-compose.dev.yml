@@ -1,0 +1,76 @@
+# Ambiente de desenvolvimento: sobe backend (Strapi com autoReload) e
+# frontend (Next.js com fast refresh) montando o codigo do host, sem
+# precisar rebuildar a imagem a cada alteracao.
+#
+# Uso:
+#   docker compose -f docker-compose.dev.yml up --build
+#   docker compose -f docker-compose.dev.yml up -d   (proximas vezes, sem --build)
+
+services:
+  db:
+    container_name: sedec_db_dev
+    image: postgres:16.0-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - sedec-dev-data:/var/lib/postgresql/data/
+    ports:
+      - "5505:5432"
+    networks:
+      - intranet-dev
+
+  backend:
+    container_name: sedec_strapi_dev
+    build:
+      context: ./backend-strapi
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: db
+    volumes:
+      - ./backend-strapi/config:/opt/app/config
+      - ./backend-strapi/src:/opt/app/src
+      - ./backend-strapi/public:/opt/app/public
+      - ./backend-strapi/package.json:/opt/app/package.json
+      - ./backend-strapi/package-lock.json:/opt/app/package-lock.json
+    ports:
+      - "1337:1337"
+    networks:
+      - intranet-dev
+    depends_on:
+      - db
+
+  frontend:
+    container_name: sedec_nextjs_dev
+    build:
+      context: ./frontend-nextjs
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      STRAPI_INTERNAL_URL: http://backend:1337
+      NEXT_PUBLIC_STRAPI_URL: http://localhost:1337
+    volumes:
+      - ./frontend-nextjs:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - intranet-dev
+    depends_on:
+      - backend
+
+networks:
+  intranet-dev:
+    driver: bridge
+
+volumes:
+  sedec-dev-data:
