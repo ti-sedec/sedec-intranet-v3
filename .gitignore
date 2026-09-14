@@ -1,3 +1,17 @@
-.env.*
+# Environment files
 .env
-.env.prod
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Third-party agent tooling (not part of this project)
+.agent/
+
+# graphify knowledge-graph output (regenerable)
+graphify-out/

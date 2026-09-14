@@ -76,32 +76,18 @@ services:
 
   proxy:
     container_name: sedec_nginx
-    image: ${DOCKER_HUB_USER}/strapi-intranet-proxy:0.0.3
+    image: ${DOCKER_HUB_USER}/strapi-intranet-proxy:0.0.4
     build:
       context: ./nginx
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - nginx-ssl:/etc/nginx/ssl
     networks:
       - intranet
     depends_on:
       - frontend
       - backend
-
-  watchtower:
-    container_name: sedec_watchtower
-    image: containrrr/watchtower
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=86400
-      - TZ=America/Cuiaba
 
 networks:
   intranet:
@@ -110,4 +96,3 @@ networks:
 volumes:
   sedec-data:
   strapi-uploads:
-  nginx-ssl:
