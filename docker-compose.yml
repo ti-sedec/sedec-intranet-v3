@@ -61,7 +61,7 @@ services:
       context: ./frontend-nextjs
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL:-http://localhost/backend}
+        NEXT_PUBLIC_STRAPI_URL: ${PUBLIC_URL:-http://localhost/backend}
     restart: unless-stopped
     env_file:
       - .env.prod
