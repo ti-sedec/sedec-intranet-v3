@@ -1,6 +1,10 @@
 import type { Core } from '@strapi/strapi';
 
 const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
+  // Precisa incluir o prefixo de PUBLIC_URL (ex: /backend) — se for apenas
+  // "/admin", o Strapi resolve a URL absoluta do admin a partir da raiz do
+  // domínio e ignora o subpath, quebrando redirects como o de logout.
+  url: env('PUBLIC_URL', '') ? `${env('PUBLIC_URL')}/admin` : '/admin',
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
