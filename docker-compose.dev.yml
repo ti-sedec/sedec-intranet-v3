@@ -34,6 +34,13 @@ services:
       - .env
     environment:
       DATABASE_HOST: db
+      # Dentro da rede do Docker o Postgres escuta na porta interna (5432).
+      # DATABASE_ETERNAL_PORT (do .env) e usada em NODE_ENV=development
+      # apenas para acessar o banco pela porta exposta no host.
+      DATABASE_ETERNAL_PORT: 5432
+      # Sem nginx no modo dev, o Strapi deve servir o admin na raiz
+      # (sem o prefixo /backend usado em producao atras do proxy).
+      PUBLIC_URL: ""
     volumes:
       - ./backend-strapi/config:/opt/app/config
       - ./backend-strapi/src:/opt/app/src
