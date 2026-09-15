@@ -8,8 +8,8 @@ export default async function Footer() {
 
   return (
     <footer className="bg-[var(--color-ink)] text-white mt-auto">
-      <div className="max-w-[1280px] mx-auto px-6 py-12 grid gap-9" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-        <div className="min-w-0" style={{ gridColumn: "span 2" }}>
+      <div className="max-w-[1280px] mx-auto px-6 py-12 grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="min-w-0 md:col-span-2">
           <div className="flex items-center gap-3 mb-3.5">
             <span className="w-9 h-9 rounded-[3px] bg-[var(--color-accent)] text-white grid place-items-center font-mono font-semibold text-xs">
               SD

@@ -94,8 +94,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
     return (
       <Link
         href={href}
-        className="no-underline grid gap-7 py-6.5 border-b border-[var(--color-border)] hover:bg-[var(--color-surface-alt)] text-inherit"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
+        className="no-underline grid grid-cols-1 sm:grid-cols-3 gap-7 py-6.5 border-b border-[var(--color-border)] hover:bg-[var(--color-surface-alt)] text-inherit"
       >
         {image ? (
           <div className="relative max-w-[320px] w-full rounded-[5px] overflow-hidden border border-[var(--color-border)]" style={{ aspectRatio: "16/10" }}>
@@ -104,7 +103,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
         ) : (
           <CoverPlaceholder label="foto de capa" className="max-w-[320px]" />
         )}
-        <div className="min-w-0" style={{ gridColumn: "span 2" }}>
+        <div className="min-w-0 sm:col-span-2">
           {article.category && <Kicker>{article.category.name}</Kicker>}
           <h3
             className="font-[family-name:var(--font-display)] font-bold m-0 mt-2 mb-2.5 text-[var(--color-ink)]"
