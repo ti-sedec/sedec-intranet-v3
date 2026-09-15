@@ -6,6 +6,7 @@ import Footer from "@/src/components/Footer";
 import { ArticleCard } from "@/src/components/ArticleCard";
 import { BirthdaysSection } from "@/src/components/BirthdaysSection";
 import { QuickLinksAside } from "@/src/components/QuickLinksAside";
+import { LatestNewsSection } from "@/src/components/LatestNewsSection";
 import {
   fetchArticles,
   fetchAniversariantesDoMes,
@@ -14,9 +15,18 @@ import {
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+const LATEST_PAGE_SIZE = 4;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const resolvedParams = await searchParams;
+  const currentPage = Number(resolvedParams?.page) || 1;
+
   const [{ data: articles }, birthdays, links] = await Promise.all([
-    fetchArticles({ page: 1, pageSize: 8 }),
+    fetchArticles({ page: 1, pageSize: 4 }),
     fetchAniversariantesDoMes(),
     fetchLinksUteis(),
   ]);
@@ -24,7 +34,14 @@ export default async function Home() {
   const today = format(new Date(), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR });
   const featured = articles[0];
   const secondary = articles.slice(1, 4);
-  const latest = articles.slice(1, 5);
+
+  const { data: latest, meta: latestMeta } = featured
+    ? await fetchArticles({
+        page: currentPage,
+        pageSize: LATEST_PAGE_SIZE,
+        excludeId: featured.id,
+      })
+    : { data: [], meta: { pagination: { pageCount: 0 } } };
 
   return (
     <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
@@ -82,11 +99,13 @@ export default async function Home() {
                   Ver todas
                 </Link>
               </div>
-              <div className="grid gap-6.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(248px, 1fr))" }}>
-                {latest.map((a) => (
-                  <ArticleCard key={a.id} article={a} variant="grid" />
-                ))}
-              </div>
+              <LatestNewsSection
+                initialArticles={latest}
+                initialPage={currentPage}
+                initialPageCount={latestMeta.pagination.pageCount}
+                pageSize={LATEST_PAGE_SIZE}
+                excludeId={featured.id}
+              />
             </div>
 
             <aside className="flex-[1_1_280px] min-w-0 flex flex-col gap-8">
