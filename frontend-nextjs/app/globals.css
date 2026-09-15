@@ -70,3 +70,26 @@ body {
   background: var(--color-accent);
   color: #fff;
 }
+
+.scroll-dark {
+  color-scheme: dark;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-navy-border) transparent;
+}
+
+.scroll-dark::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-dark::-webkit-scrollbar-thumb {
+  background-color: var(--color-navy-border);
+  border-radius: 999px;
+}
+
+.scroll-dark::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent);
+}
