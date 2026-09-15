@@ -37,7 +37,7 @@ export default async function SobrePage() {
           dek="Missão, visão e valores da Secretaria de Estado de Desenvolvimento Econômico de Mato Grosso."
         />
 
-        <div className="max-w-[1280px] mx-auto px-6 pt-11 pb-6 grid gap-10 items-start lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="max-w-[1280px] mx-auto px-6 pt-11 pb-6 grid gap-10 items-start lg:grid-cols-[minmax(0,720px)_minmax(300px,1fr)]">
           <div className="min-w-0">
             {about.blocks && about.blocks.length > 0 ? (
               <Blocks blocks={about.blocks} />
@@ -48,7 +48,7 @@ export default async function SobrePage() {
             )}
           </div>
 
-          <aside className="flex flex-col gap-8">
+          <aside className="min-w-0 flex flex-col gap-8">
             <FeaturedArticlesAside articles={articles} />
             <BirthdaysAside birthdays={birthdays} />
           </aside>
