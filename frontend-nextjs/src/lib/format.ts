@@ -40,11 +40,12 @@ export function stepsCount(blocks: ArticleBlock[] | undefined): number {
 }
 
 export function initials(name: string): string {
-  return name
-    .split(" ")
+  const words = name.split(" ").filter(Boolean);
+  const first = words[0];
+  const last = words[words.length - 1];
+  return [first, last]
     .filter(Boolean)
     .map((w) => w[0])
-    .slice(0, 2)
     .join("")
     .toUpperCase();
 }
