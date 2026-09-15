@@ -111,7 +111,7 @@ export default async function Home({
             <aside className="flex-[1_1_280px] min-w-0 flex flex-col gap-8">
               <QuickLinksAside links={links} />
 
-              <div className="rounded-md p-6 text-white" style={{ background: "var(--color-accent)" }}>
+              <div className="group rounded-md p-6 text-white bg-[var(--color-accent)] transition-[background-color,box-shadow] duration-500 ease-out hover:bg-[var(--color-ink)] hover:shadow-[0_10px_28px_-14px_oklch(0.55_0.17_45_/_0.45)]">
                 <span className="font-mono text-[10px] font-semibold tracking-[0.14em] uppercase opacity-85">
                   Base de conhecimento
                 </span>
@@ -123,7 +123,7 @@ export default async function Home({
                 </p>
                 <Link
                   href="/tutoriais"
-                  className="no-underline inline-block bg-[var(--color-ink)] text-white rounded px-4 py-2.5 text-sm font-semibold"
+                  className="no-underline inline-block bg-[var(--color-ink)] text-white rounded px-4 py-2.5 text-sm font-semibold transition-colors duration-500 ease-out group-hover:bg-[var(--color-accent)]"
                 >
                   Abrir central de ajuda
                 </Link>
