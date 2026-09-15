@@ -5,6 +5,7 @@ import { SUPPORT_EMAIL } from "@/src/lib/constants";
 export default async function Footer() {
   const global = await fetchGlobal();
   const year = new Date().getFullYear();
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
   return (
     <footer className="bg-[var(--color-ink)] text-white mt-auto">
@@ -12,7 +13,7 @@ export default async function Footer() {
         <div className="min-w-0 md:col-span-2">
           <div className="flex items-center gap-3 mb-3.5">
             <span className="w-9 h-9 rounded-[3px] bg-[var(--color-accent)] text-white grid place-items-center font-mono font-semibold text-xs">
-              SD
+              S.N
             </span>
             <span className="font-[family-name:var(--font-display)] font-extrabold text-[19px] tracking-[-0.4px]">
               SEDEC.NEWS
@@ -25,7 +26,7 @@ export default async function Footer() {
         </div>
 
         <div className="min-w-0">
-          <div className="font-mono text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--color-faint)] mb-3.5">
+          <div className="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-[#9297a6] mb-3.5">
             Navegar
           </div>
           <div className="flex flex-col gap-2.5 items-start">
@@ -37,12 +38,15 @@ export default async function Footer() {
         </div>
 
         <div className="min-w-0">
-          <div className="font-mono text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--color-faint)] mb-3.5">
+          <div className="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-[#9297a6] mb-3.5">
             Institucional
           </div>
           <div className="flex flex-col gap-2.5 text-sm text-[#a8adbb]">
             <Link href="/eventos" className="no-underline text-[#e6e8ee]">
               Agenda da Secretaria ↗
+            </Link>
+            <Link href={`${strapiUrl}/admin`} className="no-underline text-[#e6e8ee]">
+              Login (área restrita) ↗
             </Link>
             {global?.contatoRamal && <span>Ramal da Comunicação: {global.contatoRamal}</span>}
             <span>{global?.contatoEmail || SUPPORT_EMAIL}</span>
@@ -50,7 +54,7 @@ export default async function Footer() {
         </div>
       </div>
       <div className="border-t border-[var(--color-navy-border)]">
-        <div className="max-w-[1280px] mx-auto px-6 py-4.5 flex gap-4 flex-wrap font-mono text-[10px] tracking-[0.1em] uppercase text-[var(--color-faint)]">
+        <div className="max-w-[1280px] mx-auto px-6 py-4.5 flex gap-4 flex-wrap font-mono text-[11px] tracking-[0.08em] uppercase text-[#9297a6]">
           <span>© {year} SEDEC · Uso interno</span>
           <span className="ml-auto">Publicado via Strapi</span>
         </div>

@@ -22,7 +22,7 @@ export default function Header() {
       <div className="max-w-[1280px] mx-auto px-6 py-3.5 flex items-center gap-6">
         <Link href="/" className="flex items-center gap-3">
           <span className="w-10 h-10 rounded-[3px] bg-[var(--color-accent)] text-white grid place-items-center font-mono font-semibold text-[13px] tracking-[-0.5px]">
-            SD
+            S.N
           </span>
           <span className="flex flex-col leading-[1.1]">
             <span className="font-[family-name:var(--font-display)] font-extrabold text-[20px] tracking-[-0.4px] text-[var(--color-ink)]">
