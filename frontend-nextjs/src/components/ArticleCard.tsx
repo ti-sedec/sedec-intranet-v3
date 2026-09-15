@@ -52,11 +52,17 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
     return (
       <Link
         href={href}
-        className="no-underline block flex-[2_1_420px] min-w-0 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md overflow-hidden hover:border-[var(--color-ink)]"
+        className="group no-underline block flex-[2_1_420px] min-w-0 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md overflow-hidden transition-[border-color,box-shadow] duration-200 hover:border-[var(--color-accent-soft)] hover:shadow-[0_10px_28px_-14px_oklch(0.55_0.17_45_/_0.45)]"
       >
         {image ? (
-          <div className="relative w-full" style={{ aspectRatio: "16/8" }}>
-            <Image src={image} alt={article.title} fill className="object-cover" priority />
+          <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/8" }}>
+            <Image
+              src={image}
+              alt={article.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              priority
+            />
           </div>
         ) : (
           <CoverPlaceholder label="foto de capa" ratio="16/8" className="rounded-none border-0" />
@@ -64,7 +70,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
         <div className="px-7 pt-6.5 pb-7.5">
           {article.category && <Kicker>{article.category.name}</Kicker>}
           <h2
-            className="font-[family-name:var(--font-display)] font-bold m-0 mt-3 mb-3 text-[var(--color-ink)]"
+            className="font-[family-name:var(--font-display)] font-bold m-0 mt-3 mb-3 text-[var(--color-ink)] transition-colors duration-200 group-hover:text-[var(--color-accent-strong)]"
             style={{ fontSize: "clamp(24px,3vw,38px)", lineHeight: 1.08, letterSpacing: "-0.9px" }}
           >
             {article.title}
@@ -80,9 +86,12 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
 
   if (variant === "compact") {
     return (
-      <Link href={href} className="no-underline block pb-3.5 border-b border-[var(--color-border)] text-inherit">
+      <Link
+        href={href}
+        className="group no-underline block pb-3.5 border-b border-[var(--color-border)] text-inherit transition-colors duration-200 hover:border-[var(--color-accent-soft)]"
+      >
         {article.category && <Kicker>{article.category.name}</Kicker>}
-        <h3 className="font-[family-name:var(--font-display)] font-semibold text-lg leading-tight tracking-[-0.3px] m-0 mt-2 mb-1.5 text-[var(--color-ink)]">
+        <h3 className="font-[family-name:var(--font-display)] font-semibold text-lg leading-tight tracking-[-0.3px] m-0 mt-2 mb-1.5 text-[var(--color-ink)] transition-colors duration-200 group-hover:text-[var(--color-accent-strong)]">
           {article.title}
         </h3>
         <p className="text-sm leading-relaxed text-[var(--color-muted)] m-0">{article.description}</p>
@@ -94,11 +103,16 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
     return (
       <Link
         href={href}
-        className="no-underline grid grid-cols-1 sm:grid-cols-3 gap-7 py-6.5 border-b border-[var(--color-border)] hover:bg-[var(--color-surface-alt)] text-inherit"
+        className="group no-underline grid grid-cols-1 sm:grid-cols-3 gap-7 py-6.5 px-3 -mx-3 rounded-md border-b border-[var(--color-border)] transition-colors duration-200 hover:bg-[var(--color-surface-alt)] hover:border-[var(--color-accent-soft)] text-inherit"
       >
         {image ? (
           <div className="relative max-w-[320px] w-full rounded-[5px] overflow-hidden border border-[var(--color-border)]" style={{ aspectRatio: "16/10" }}>
-            <Image src={image} alt={article.title} fill className="object-cover" />
+            <Image
+              src={image}
+              alt={article.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            />
           </div>
         ) : (
           <CoverPlaceholder label="foto de capa" className="max-w-[320px]" />
@@ -106,7 +120,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
         <div className="min-w-0 sm:col-span-2">
           {article.category && <Kicker>{article.category.name}</Kicker>}
           <h3
-            className="font-[family-name:var(--font-display)] font-bold m-0 mt-2 mb-2.5 text-[var(--color-ink)]"
+            className="font-[family-name:var(--font-display)] font-bold m-0 mt-2 mb-2.5 text-[var(--color-ink)] transition-colors duration-200 group-hover:text-[var(--color-accent-strong)]"
             style={{ fontSize: "clamp(20px,2.4vw,28px)", lineHeight: 1.15, letterSpacing: "-0.6px" }}
           >
             {article.title}
@@ -121,16 +135,24 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
   }
 
   return (
-    <Link href={href} className="no-underline block min-w-0 text-inherit">
+    <Link href={href} className="group no-underline block min-w-0 text-inherit">
       {image ? (
-        <div className="relative w-full rounded-[5px] overflow-hidden border border-[var(--color-border)] mb-3.5" style={{ aspectRatio: "16/10" }}>
-          <Image src={image} alt={article.title} fill className="object-cover" />
+        <div
+          className="relative w-full rounded-[5px] overflow-hidden border border-[var(--color-border)] mb-3.5 transition-colors duration-200 group-hover:border-[var(--color-accent-soft)]"
+          style={{ aspectRatio: "16/10" }}
+        >
+          <Image
+            src={image}
+            alt={article.title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
         </div>
       ) : (
         <CoverPlaceholder label="foto de capa" className="mb-3.5" />
       )}
       {article.category && <Kicker>{article.category.name}</Kicker>}
-      <h3 className="font-[family-name:var(--font-display)] font-semibold text-[19px] leading-tight tracking-[-0.4px] m-0 mt-2 mb-1.5 text-[var(--color-ink)]">
+      <h3 className="font-[family-name:var(--font-display)] font-semibold text-[19px] leading-tight tracking-[-0.4px] m-0 mt-2 mb-1.5 text-[var(--color-ink)] transition-colors duration-200 group-hover:text-[var(--color-accent-strong)]">
         {article.title}
       </h3>
       <p className="text-sm leading-relaxed text-[var(--color-muted)] mt-0 mb-2.5">{article.description}</p>
