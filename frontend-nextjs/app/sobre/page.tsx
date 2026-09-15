@@ -7,7 +7,7 @@ import Footer from "@/src/components/Footer";
 
 export const metadata = {
   title: "Sobre | SEDEC.NEWS",
-  description: "Quem faz, com que frequência publica e como sua equipe pode participar.",
+  description: "Missão, visão e valores da Secretaria de Estado de Desenvolvimento Econômico de Mato Grosso.",
 };
 
 export const dynamic = "force-dynamic";
@@ -27,8 +27,8 @@ export default async function SobrePage() {
           backHref="/"
           backLabel="Home"
           kicker="Institucional"
-          title={about.title || "Sobre o SEDEC.NEWS"}
-          dek="Quem faz, com que frequência publica e como sua equipe pode participar."
+          title={about.title || "Sobre a SEDEC"}
+          dek="Missão, visão e valores da Secretaria de Estado de Desenvolvimento Econômico de Mato Grosso."
         />
 
         <div className="max-w-[1120px] mx-auto px-6 pt-11 pb-6">
