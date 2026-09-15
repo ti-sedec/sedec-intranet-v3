@@ -10,20 +10,27 @@
     "favicon": null
   },
   "about": {
-    "title": "About the strapi blog",
+    "title": "Sobre a SEDEC",
     "blocks": [
       {
+        "__component": "shared.rich-text",
+        "body": "A Secretaria de Estado de Desenvolvimento Econômico (SEDEC) é o órgão do Governo de Mato Grosso responsável por formular e conduzir as políticas públicas de desenvolvimento econômico do estado, com sede no Palácio Paiaguás, em Cuiabá. Este espaço reúne as informações institucionais da secretaria — missão, visão e valores — que orientam o trabalho de todas as equipes."
+      },
+      {
         "__component": "shared.quote",
-        "title": "Thelonius Monk",
-        "body": "You've got to dig it to dig it, you dig?"
+        "title": "Missão",
+        "body": "Consolidar o crescimento econômico sustentável de Mato Grosso, integrando potencialidades locais e setores estratégicos às demandas e oportunidades globais, por meio de políticas públicas que estimulem um ambiente de negócios seguro, dinâmico, competitivo e inovador.",
+        "atribuicao": "Planejamento estratégico SEDEC"
+      },
+      {
+        "__component": "shared.quote",
+        "title": "Visão",
+        "body": "Ser referência em inovação e eficiência na promoção de políticas públicas sustentáveis que impulsionam o crescimento econômico de Mato Grosso, garantindo qualidade de vida e bem-estar para toda a população.",
+        "atribuicao": "Planejamento estratégico SEDEC"
       },
       {
         "__component": "shared.rich-text",
-        "body": "## Dedit imago conspicuus cum capillis totidem inhibere\n\nLorem markdownum **rerum**, est limine: columbas: ab infelix hostem arbore nudis\ncrudelis. Videtur reliquit ambo ferrum dote sub amne fatis **illuc**, in magis,\nnec."
-      },
-      {
-        "__component": "shared.media",
-        "file": "coffee-art.jpg"
+        "body": "## Valores institucionais\n\n- **Ética** — Agir com honestidade, integridade e honradez, respeitando as regras e os valores morais.\n- **Inovação e Empreendedorismo** — Incentivar criatividade, participação, talento e entusiasmo, contribuindo para o crescimento coletivo.\n- **Transparência** — Garantir divulgação e acesso às informações públicas, de forma simples e compreensível para a sociedade.\n- **Eficiência** — Realizar as entregas com qualidade, evitando erros e retrabalhos, de forma ágil e integrada.\n- **Respeito ao Meio Ambiente e Sustentabilidade** — Atuar na preservação ambiental e promover práticas sustentáveis.\n- **Ousadia** — Sair da zona de conforto, experimentar e incentivar novas ideias e soluções.\n- **Resultados** — Manter foco em metas, indicadores e impactos das ações na geração de emprego, renda e competitividade.\n- **Diversidade** — Valorizar a pluralidade de pessoas, ideias e culturas, garantindo um ambiente inclusivo.\n- **Memória Institucional** — Preservar e compartilhar o conhecimento técnico e histórico da instituição, assegurando continuidade e aprendizagem organizacional.\n- **Valorização do Servidor** — Reconhecer a importância e fortalecer o papel do servidor na execução das políticas públicas."
       }
     ]
   },
@@ -93,7 +100,10 @@
         },
         {
           "__component": "shared.slider",
-          "files": ["coffee-art.jpg", "coffee-beans.jpg"]
+          "files": [
+            "coffee-art.jpg",
+            "coffee-beans.jpg"
+          ]
         }
       ]
     },
@@ -128,7 +138,10 @@
         },
         {
           "__component": "shared.slider",
-          "files": ["coffee-art.jpg", "coffee-beans.jpg"]
+          "files": [
+            "coffee-art.jpg",
+            "coffee-beans.jpg"
+          ]
         }
       ]
     },
@@ -163,7 +176,10 @@
         },
         {
           "__component": "shared.slider",
-          "files": ["coffee-art.jpg", "coffee-beans.jpg"]
+          "files": [
+            "coffee-art.jpg",
+            "coffee-beans.jpg"
+          ]
         }
       ]
     },
@@ -198,7 +214,10 @@
         },
         {
           "__component": "shared.slider",
-          "files": ["coffee-art.jpg", "coffee-beans.jpg"]
+          "files": [
+            "coffee-art.jpg",
+            "coffee-beans.jpg"
+          ]
         }
       ]
     },
@@ -233,7 +252,10 @@
         },
         {
           "__component": "shared.slider",
-          "files": ["coffee-art.jpg", "coffee-beans.jpg"]
+          "files": [
+            "coffee-art.jpg",
+            "coffee-beans.jpg"
+          ]
         }
       ]
     }
