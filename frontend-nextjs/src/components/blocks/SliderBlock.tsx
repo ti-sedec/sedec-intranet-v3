@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { SliderBlock as SliderBlockType, StrapiImage } from '@/src/types/strapi';
 import { getStrapiMedia } from '@/src/lib/strapi';
+import { MediaLightbox } from './MediaLightbox';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -69,43 +70,7 @@ export function SliderBlock({ block }: { block: SliderBlockType }) {
         </figcaption>
       )}
 
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 md:p-8"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 md:top-8 md:right-8 text-white hover:text-[var(--color-accent)] p-2 z-[110]"
-            onClick={() => setSelectedImage(null)}
-            type="button"
-            title="Fechar"
-          >
-            <span className="sr-only">Fechar</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          <div
-            className="w-full max-h-[90vh] overflow-y-auto flex flex-col items-center rounded-md bg-[var(--color-ink)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={getStrapiMedia(selectedImage.url) as string}
-              alt={selectedImage.alternativeText || selectedImage.name || 'Imagem ampliada'}
-              width={selectedImage.width || 1920}
-              height={selectedImage.height || 1080}
-              className="w-full h-auto object-contain block"
-              priority
-            />
-            {selectedImage.caption && (
-              <div className="w-full bg-white text-[var(--color-ink)] px-6 py-4 text-sm text-center">
-                {selectedImage.caption}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <MediaLightbox media={selectedImage} onClose={() => setSelectedImage(null)} />
     </figure>
   );
 }

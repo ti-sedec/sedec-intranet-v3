@@ -18,6 +18,7 @@ export interface StrapiImage {
   name?: string;
   alternativeText?: string;
   caption?: string;
+  mime?: string;
   width?: number;
   height?: number;
   formats?: {
