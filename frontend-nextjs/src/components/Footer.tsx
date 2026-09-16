@@ -19,7 +19,7 @@ export default async function Footer() {
               SEDEC.NEWS
             </span>
           </div>
-          <p className="text-sm leading-relaxed text-[#a8adbb] max-w-[44ch] m-0">
+          <p className="text-base leading-relaxed text-[#a8adbb] max-w-[44ch] m-0">
             {global?.siteDescription ||
               "Canal oficial de notícias, comunicados e conhecimento interno da Secretaria de Estado de Desenvolvimento Econômico."}
           </p>
@@ -56,7 +56,7 @@ export default async function Footer() {
       <div className="border-t border-[var(--color-navy-border)]">
         <div className="max-w-[1280px] mx-auto px-6 py-4.5 flex gap-4 flex-wrap font-mono text-[11px] tracking-[0.08em] uppercase text-[#9297a6]">
           <span>© {year} SEDEC · Uso interno</span>
-          <span className="ml-auto">Publicado via Strapi</span>
+          <span className="ml-auto">Desenvolvido pela TI SEDEC</span>
         </div>
       </div>
     </footer>
