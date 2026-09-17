@@ -38,8 +38,11 @@ services:
       - .env.prod
     environment:
       DATABASE_HOST: db
+    # Montado em /opt/app/public (não só /uploads): o "strapi import" move a
+    # pasta uploads/ para um backup temporário via rename(), que falha com
+    # EXDEV se uploads/ for um mount point separado do resto de public/.
     volumes:
-      - strapi-uploads-coolify:/opt/app/public/uploads
+      - strapi-uploads-coolify:/opt/app/public
     networks:
       - intranet
     depends_on:
