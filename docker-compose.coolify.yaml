@@ -1,0 +1,71 @@
+# Compose para deploy via Coolify.
+# Coolify builda as imagens a partir do contexto abaixo e assume o papel de
+# proxy reverso (Traefik) + HTTPS — por isso não há `ports:` publicadas aqui
+# e o serviço `proxy` (nginx) foi removido.
+#
+# Roteamento: configurado no campo "Domains" de cada serviço, na UI do
+# Coolify (não em labels aqui) — frontend recebe o domínio raiz e backend
+# recebe o mesmo domínio com o path /backend. Ver instruções de deploy.
+#
+# PUBLIC_URL deve ser https://intranet.sedec.mt.gov.br/backend (variável de
+# ambiente definida no Coolify, usada tanto pelo backend quanto pelo frontend).
+
+services:
+  db:
+    container_name: sedec_db
+    image: postgres:16.0-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    env_file:
+      - .env.prod
+    volumes:
+      - sedec-data:/var/lib/postgresql/data/
+    networks:
+      - intranet
+
+  backend:
+    container_name: sedec_strapi
+    build:
+      context: ./backend-strapi
+      dockerfile: Dockerfile.prod
+      args:
+        PUBLIC_URL: ${PUBLIC_URL}
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      DATABASE_HOST: db
+    volumes:
+      - strapi-uploads:/opt/app/public/uploads
+    networks:
+      - intranet
+    depends_on:
+      - db
+
+  frontend:
+    container_name: sedec_nextjs
+    build:
+      context: ./frontend-nextjs
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_STRAPI_URL: ${PUBLIC_URL}
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      - PORT=3000
+    networks:
+      - intranet
+    depends_on:
+      - backend
+
+networks:
+  intranet:
+    driver: bridge
+
+volumes:
+  sedec-data:
+  strapi-uploads:
