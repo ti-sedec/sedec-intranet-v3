@@ -196,7 +196,8 @@ export async function fetchAniversariantesDoMes(referenceDate: Date = new Date()
   }).toString();
 
   const res = await fetch(`${STRAPI_URL}/api/aniversariantes?${query}`, {
-    next: { revalidate: 300 },
+    // Sem cache: novos aniversariantes devem aparecer imediatamente
+    cache: 'no-store',
   });
 
   if (!res.ok) {
