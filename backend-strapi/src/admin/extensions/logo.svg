@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 48" width="250" height="48">
+  <rect x="0" y="4" width="40" height="40" rx="3" fill="#d55c13"/>
+  <text x="20" y="29" font-family="ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="13" font-weight="600" letter-spacing="-0.5" fill="#fff" text-anchor="middle">S.N</text>
+  <text x="52" y="31" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.4" fill="#171b26">SEDEC<tspan fill="#d55c13">.NEWS</tspan></text>
+</svg>
