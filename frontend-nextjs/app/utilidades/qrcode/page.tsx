@@ -8,6 +8,8 @@ export const metadata = {
   description: "Gere QR Codes a partir de uma URL ou de um contato telefônico.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function QRCodePage() {
   return (
     <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
