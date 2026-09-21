@@ -58,8 +58,11 @@ services:
     restart: unless-stopped
     env_file:
       - .env.prod
+    # STRAPI_INTERNAL_URL: o SSR busca o Strapi pela rede interna do Docker;
+    # o domínio público não é alcançável de dentro do container (timeout).
     environment:
       - PORT=3000
+      - STRAPI_INTERNAL_URL=http://backend:1337
     networks:
       - intranet
     depends_on:
