@@ -6,11 +6,13 @@ import Footer from "@/src/components/Footer";
 import { ArticleCard } from "@/src/components/ArticleCard";
 import { BirthdaysSection } from "@/src/components/BirthdaysSection";
 import { QuickLinksAside } from "@/src/components/QuickLinksAside";
+import { WhatsAppGroupCard } from "@/src/components/WhatsAppGroupCard";
 import { LatestNewsSection } from "@/src/components/LatestNewsSection";
 import {
   fetchArticles,
   fetchAniversariantesDoMes,
   fetchLinksUteis,
+  fetchGlobal,
 } from "@/src/lib/strapi";
 
 export const dynamic = "force-dynamic";
@@ -25,10 +27,11 @@ export default async function Home({
   const resolvedParams = await searchParams;
   const currentPage = Number(resolvedParams?.page) || 1;
 
-  const [{ data: articles }, birthdays, links] = await Promise.all([
+  const [{ data: articles }, birthdays, links, global] = await Promise.all([
     fetchArticles({ page: 1, pageSize: 4 }),
     fetchAniversariantesDoMes(),
     fetchLinksUteis(),
+    fetchGlobal(),
   ]);
 
   const today = format(new Date(), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR });
@@ -128,6 +131,11 @@ export default async function Home({
                   Abrir central de ajuda
                 </Link>
               </div>
+
+              <WhatsAppGroupCard
+                qrcode={global?.qrcodeGrupoWhatsappOficial ?? null}
+                url={global?.linkGrupoWhatsappOficial ?? null}
+              />
             </aside>
           </section>
         </>

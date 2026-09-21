@@ -239,6 +239,9 @@ export async function fetchGlobal(): Promise<GlobalSettings | null> {
     'fields[2]': 'agendaUrl',
     'fields[3]': 'contatoRamal',
     'fields[4]': 'contatoEmail',
+    'fields[5]': 'linkGrupoWhatsappOficial',
+    'populate[qrcodeGrupoWhatsappOficial][fields][0]': 'url',
+    'populate[qrcodeGrupoWhatsappOficial][fields][1]': 'alternativeText',
   }).toString();
 
   const res = await fetch(`${STRAPI_URL}/api/global?${query}`, {

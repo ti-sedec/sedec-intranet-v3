@@ -126,6 +126,8 @@ export interface GlobalSettings {
   agendaUrl: string | null;
   contatoRamal: string | null;
   contatoEmail: string | null;
+  qrcodeGrupoWhatsappOficial: StrapiImage | null;
+  linkGrupoWhatsappOficial: string | null;
 }
 
 export interface StrapiResponse<T> {

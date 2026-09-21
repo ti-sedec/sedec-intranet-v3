@@ -45,6 +45,18 @@
     "contatoEmail": {
       "type": "email",
       "required": false
+    },
+    "qrcodeGrupoWhatsappOficial": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "linkGrupoWhatsappOficial": {
+      "type": "string",
+      "required": false
     }
   }
 }
