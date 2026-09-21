@@ -1,21 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/noticias", label: "Notícias" },
   { href: "/tutoriais", label: "Tutoriais" },
-  { href: "/links-uteis", label: "Links úteis" },
-  { href: "/sobre", label: "Sobre" },
 ];
+
+const ABOUT_LINK = { href: "/sobre", label: "Sobre" };
+
+const TOOLS_LINKS = [{ href: "/links-uteis", label: "Links úteis" }];
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
+  const toolsActive = TOOLS_LINKS.some((l) => pathname === l.href);
+
+  useEffect(() => {
+    if (!toolsOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (!toolsRef.current?.contains(e.target as Node)) setToolsOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setToolsOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [toolsOpen]);
 
   return (
     <header className="sticky top-0 z-40 bg-[var(--color-bg)] border-b border-[var(--color-border)]">
@@ -49,6 +70,48 @@ export default function Header() {
               </Link>
             );
           })}
+          <div ref={toolsRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setToolsOpen((v) => !v)}
+              aria-haspopup="menu"
+              aria-expanded={toolsOpen}
+              className={`inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                toolsActive || toolsOpen ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+              }`}
+            >
+              Utilidades
+              <ChevronDown size={14} className={`transition-transform ${toolsOpen ? "rotate-180" : ""}`} />
+            </button>
+            {toolsOpen && (
+              <div
+                role="menu"
+                className="absolute right-0 top-full mt-1 min-w-[180px] bg-[var(--color-bg)] border border-[var(--color-border)] border-t-2 border-t-[var(--color-accent)] rounded shadow-lg py-1 z-50"
+              >
+                {TOOLS_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    role="menuitem"
+                    onClick={() => setToolsOpen(false)}
+                    className={`block no-underline px-4 py-2.5 text-sm font-medium hover:bg-[#ebe7df] ${
+                      pathname === link.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            href={ABOUT_LINK.href}
+            className={`no-underline px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+              pathname === ABOUT_LINK.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+            }`}
+          >
+            {ABOUT_LINK.label}
+          </Link>
           <Link
             href="/eventos"
             className="ml-2 inline-flex items-center gap-2 bg-[var(--color-ink)] text-white px-4 py-2.5 rounded text-[13px] font-semibold no-underline hover:bg-[var(--color-accent)] hover:text-white"
@@ -86,6 +149,39 @@ export default function Header() {
               </Link>
             );
           })}
+          <details className="group">
+            <summary
+              className={`list-none cursor-pointer flex items-center justify-between px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                toolsActive ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+              }`}
+            >
+              Utilidades
+              <ChevronDown size={16} className="transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="ml-3 pl-3 border-l-2 border-[var(--color-accent)] flex flex-col">
+              {TOOLS_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`no-underline px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                    pathname === link.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </details>
+          <Link
+            href={ABOUT_LINK.href}
+            onClick={() => setOpen(false)}
+            className={`no-underline px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${
+              pathname === ABOUT_LINK.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+            }`}
+          >
+            {ABOUT_LINK.label}
+          </Link>
           <Link
             href="/eventos"
             onClick={() => setOpen(false)}
