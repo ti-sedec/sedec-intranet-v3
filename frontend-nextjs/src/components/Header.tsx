@@ -13,7 +13,10 @@ const NAV_LINKS = [
 
 const ABOUT_LINK = { href: "/sobre", label: "Sobre" };
 
-const TOOLS_LINKS = [{ href: "/links-uteis", label: "Links úteis" }];
+const TOOLS_LINKS = [
+  { href: "/links-uteis", label: "Links úteis" },
+  { href: "/utilidades/qrcode", label: "Gerador de QR Code" },
+];
 
 export default function Header() {
   const pathname = usePathname();
