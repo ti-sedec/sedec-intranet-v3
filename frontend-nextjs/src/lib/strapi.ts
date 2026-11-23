@@ -5,6 +5,7 @@ import type {
   Category,
   GlobalSettings,
   LinkUtil,
+  Painel,
   StrapiResponse,
   Tutorial,
 } from '@/src/types/strapi';
@@ -179,6 +180,25 @@ export async function fetchLinksUteis(): Promise<LinkUtil[]> {
   }).toString();
 
   const res = await fetch(`${STRAPI_URL}/api/links-uteis?${query}`, {
+    next: { revalidate: 300 },
+  });
+
+  if (!res.ok) {
+    return [];
+  }
+
+  const json = await res.json();
+  return json.data || [];
+}
+
+export async function fetchPaineis(): Promise<Painel[]> {
+  const query = new URLSearchParams({
+    'pagination[pageSize]': '100',
+    'sort[0]': 'createdAt:desc',
+    'sort[1]': 'id:desc',
+  }).toString();
+
+  const res = await fetch(`${STRAPI_URL}/api/paineis?${query}`, {
     next: { revalidate: 300 },
   });
 

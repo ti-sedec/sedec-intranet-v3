@@ -1,0 +1,163 @@
+[
+  {
+    "setor": "NGER",
+    "tema": "ORÇAMENTO",
+    "resumo": "Acompanhar mensalmente a execução do orçamentária da SEDEC. Com detalhamento das ações orçamentárias, segundo UO, Elemento de Despesa,  Orçado Inciação, Suplementação, valor pago",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYTZiYjA5NDgtM2I3YS00OWU1LTg0OGUtNDMwZDE3ODIwZTI5IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "atualizado com a PLAN 72 do FIPLAN ( verificar existencia de API para automação da aplicação)"
+  },
+  {
+    "setor": "NGER",
+    "tema": "PPA 2024-2027",
+    "resumo": "Apresentação das ações  e indicadores propostas pela SEDEC para acompanhamento do desempenho das Poltiicas Públicas da SEDEC",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiN2Y1MzJiMjUtZmM0NS00YjI2LWE5N2MtY2RlYzZjZjgyZWJlIiwidCI6IjQ5NzE3NzM5LTQ4M2UtNGIxZS1hOTk1LTVjMzgxODU5MzY2YSJ9",
+    "observacao": "Relatório elaborado com problemas de atualização dos indicadores mensurados"
+  },
+  {
+    "setor": "NGER",
+    "tema": "PLANO ESTRATEGICO SEDEC 2025-2030",
+    "resumo": "Monitoramento dos OKr do PE- SEDEC2025-2030",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiNWE3YTFmMDUtNmUwYi00ZDFiLTgyYjctMDBhY2NjNzE5ZGRiIiwidCI6IjQ5NzE3NzM5LTQ4M2UtNGIxZS1hOTk1LTVjMzgxODU5MzY2YSJ9&pageName=008866316da54c2bb6e3",
+    "observacao": "Relatório precisa de atulaização quanto os indicadores propostos ver considerações da SEPLAG quanto a adequação da proposta   Aqui"
+  },
+  {
+    "setor": "UNISECI",
+    "tema": "MONITORAMENTO PLANO DE PROVIDENCIA",
+    "resumo": "Monitoramento interno dos prazos pactuados dos planos de providencias assumidos pela SEDEC junto aos órgãos de controle",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiMmIzZGY5ODMtOTljNC00NmYyLWIxMDUtNjIxNzUzZWZjOGMwIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Relatório atualizado por meio de planilho no googledrive atualizada pela UNICESI/SEDEC"
+  },
+  {
+    "setor": "OVIDORIA",
+    "tema": "RELATORIO DE GESTÃO DE OUVIDORIA",
+    "resumo": "Monitoramento das demandas recebidas pela ouvidoria setoria da SEDEC",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiMGRjNDE4ZDYtYTVmMy00ZWIyLTkxYjgtNjhiN2E5OWFmNGE4IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Relatório elaborado por meio de preenchimento de planilha interna daouvidora setorial ( ver se existe API para automação da aplicação)"
+  },
+  {
+    "setor": "COMITE LGPD",
+    "tema": "RIPID/LGPD",
+    "resumo": "Relatório de Avaliação de Risco e controles atribuídos aos serviços da SEDEC",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiM2MyNTZhNGUtNGYwMi00NTNhLThjYjgtMTcxZDRiMjM1N2YyIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Relatório de avaliação de risco à LGPD aplicado na SEDEC para"
+  },
+  {
+    "setor": "AQUISIÇÃO E CONTRATOS",
+    "tema": "AQUISIÇÃO E CONTRATOS",
+    "resumo": "Acomanhamento do relatório de contratos expedidos por meio do portal transparencia do governo de Mato Grosso",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiNmZjMWE0MWUtMzc2ZC00ZjljLWJiNDQtYjdlZjhjNTI0Y2U3IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Relatorio do FISCAL disponivel na pagina da SEDEC"
+  },
+  {
+    "setor": "TRANSPORTE",
+    "tema": "AQUISIÇÃO DE PASSAGENS AEREAS",
+    "resumo": "Acompanhamento",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYWVmZmJmMWYtODNlYi00Nzk3LWI4OTgtMGVhYzA4Zjk0ZmQ4IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "informações são alimendas pelo planilha de elaboração proproa pelo setor demandante"
+  },
+  {
+    "setor": "TRANSPARENCIA",
+    "tema": "DIARIAS",
+    "resumo": "Acompanhamento do gasto com diárias da da SEDEC por: servidor, destino e valor. as informações são subsidiadas pelo Portal da Transparênica Pública",
+    "link": "",
+    "observacao": "nao publicado"
+  },
+  {
+    "setor": "NGER",
+    "tema": "IMGG",
+    "resumo": "Painel de acesso as informações consolidadas de informações do GABINETE DE GESTÃO  GOVMT das secretarias de estado de Mato Grosso",
+    "link": "https://sites.google.com/gabgoverno.mt.gov.br/aplicacaoimgg/%C3%B3rg%C3%A3os-e-entidades?authuser=0",
+    "observacao": "Elaboração  gabinete de governo ( Edmar Vieira) subsidiado pela equipe NGER e Observatório , utilizando o sistema SIGIND"
+  },
+  {
+    "setor": "SUPERINTENDENCIA ADMINSITRATIVA",
+    "tema": "MONITORAMENTO CONTRATOS",
+    "resumo": "painel de monitoramento para eventos do acompanhamento dos contratos da SEDEC - a pedido da Superintencia de Adminsitração Sistêmica",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiMDZhMjZjNjAtM2NiNi00MTJjLWFlZjUtYjllMTE5OWM2NzA3IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "FORMULÁRIO DE MONITORAMENTO DOS CONTRATOS"
+  },
+  {
+    "setor": "SUPERINTENDENCIA ADMINSITRATIVA",
+    "tema": "MONITORAMENTO USO DE VEICULOS E MOTORISTAS",
+    "resumo": "painel de acompanhametno das solicitações de veiculos  - ainda falta encotrar soluções para a elaboração de novos indicadores e pratica de controles de veiculos, motoristas, custos e outras iniciativas.",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiMDRiNjBiNTctMzBjYS00OTgzLTlmMDktZWZjMjZiY2IxZDlkIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": ""
+  },
+  {
+    "setor": "NGER",
+    "tema": "DISTRIBUIÇÃO DO TETO ORÇAMENTÁRIO 2027",
+    "resumo": "Painel de apoio às unidades para relaizarem o detalhamento das ações a serem inseridas no PTA/LOA - 2027",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiZWM5NGJiMDYtM2NlOS00MjMzLWEwZTEtODczOWQxNDcyMTEyIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "AÇÕES_DISTRIBUIÇÃO TETO"
+  },
+  {
+    "setor": "SUPERINTENDENCIA ADMINSITRATIVA",
+    "tema": "DIARIAS - PLANO DE INTEGRIDADE",
+    "resumo": "Painel em apoio ao cumprimento do Plano de Integridade da SEDEC afim de atender a criação de indicadores capaz de relacionar os Objetivos Estrategico do Plano Estrategico da SEDEC e os gastos com diárias, bem como  com o relaorio de viagens da SEDEC",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiOWYzZGIxN2MtOGU4Mi00OTU4LTkyZjAtZWIyZmVmYzM1MTAxIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "BI_DIARIA_TRANSPARECIA"
+  },
+  {
+    "setor": "GESTÃO DE PESSOAS",
+    "tema": "PLANO DE CAPACITAÇÃO - TALENTOS SEDEC 2027-2028",
+    "resumo": "Painel de sistematização do  Plano de Desenvolvimento Profissional e de compentências da SEDEC para oos anos de 2027/2028",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYTk0Nzg2MDAtYzBiOC00MmIyLWIzY2MtMjlhZmJjODQwMDJhIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "PLANO DE CAPACITAÇÃO"
+  },
+  {
+    "setor": "GESTÃO DE PESSOAS",
+    "tema": "CONTROLE DE FERIAS DOS ESTAGIÁRIOS",
+    "resumo": "Painel que evidencia a necessidade de solciitação de férias de estagiarios da SEDEC, conforme a proximidade de 1 ano efetivo exercício e proximidade da finalização de contratos",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiNzFmN2M1MTItNTllYy00YTVhLTg4MDktN2UxM2I2NTIyZDkzIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "GP/SEDEC - Relação de Estagiário 2026"
+  },
+  {
+    "setor": "NGER",
+    "tema": "AVALIA - GOV 2025",
+    "resumo": "Painel gerencial de avaliação das ações de politicas públicas de MT. Projetodos para forncer dados e análises de maneira clara e acessiveil, permitindo uma compreensão melhor dos impactos governamentais  referente ao nao de 2025",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiNWE0NDM1OTUtMWRlNi00ZWVjLTlkN2QtNmNiNmNiODA4M2JjIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG com as informações do RAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "AVALIA - GOV 2024",
+    "resumo": "Painel gerencial de avaliação das ações de politicas públicas de MT. Projetodos para forncer dados e análises de maneira clara e acessiveil, permitindo uma compreensão melhor dos impactos governamentais  referente ao ano de 2024",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiZmRmOTkyYWItZjUwZS00ODE2LWI2ZTgtZDdhYjFkNmI5MmE1IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG com as informações do RAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "MAPA DA ESTRATEGIA",
+    "resumo": "Painel que acompanha O monitoramento do Plano Estratégico do Estado de Mato Grosso é um processo de gestão instituído pela Lei do Plano Plurianual (PPA) 2024-2027, e constitui uma das peças centrais do Modelo de Gestão Estratégica do Estado.",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiZWFhOGI3NGEtNDhiYi00YjQwLTg4OTQtZDIxNGY3NmQzZjA%202IiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "MONITORAMENTO DAS AÇÕES ESTRATEGICAS 2026",
+    "resumo": "Painel que acompanha o desempenho das ações prioritárias do governo de Mato Grosso",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYTNmNTdmYzEtYWNhMi00MmVjLTlmYjYtNjgyYjc0NTA2N2QyIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "MONITORAMENTO DAS AÇÕES ESTRATEGICAS 2025",
+    "resumo": "Painel que acompanha o desempenho das ações prioritárias do governo de Mato Grosso",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYTNmNTdmYzEtYWNhMi00MmVjLTlmYjYtNjgyYjc0NTA2N2QyIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "MONITORAMENTO DAS AÇÕES ESTRATEGICAS 2024",
+    "resumo": "Painel que acompanha o desempenho das ações prioritárias do governo de Mato Grosso",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiYTNmNTdmYzEtYWNhMi00MmVjLTlmYjYtNjgyYjc0NTA2N2QyIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "Responsável pela elaboração SEPLAG"
+  },
+  {
+    "setor": "NGER",
+    "tema": "RADAR - Entregas da SEDEC",
+    "resumo": "Painel que relaciona todas entregas declaradas ao SISTEMA ENTREGAS, cadastrados ate o momento, apresenta a entrega  realizadas pela SEDEC , com a identificação de estagio da entrega, sua regionalização e  valores.",
+    "link": "https://app.powerbi.com/view?r=eyJrIjoiNjU2YjM0N2UtMWY0MS00MzJmLWFmN2YtNWJlOTM4MzJiYjExIiwidCI6IjIxODk0ZWU5LWI1NzctNDNjYS04ZmY1LTQ5YjIzYzVhZDM3NSJ9",
+    "observacao": "ENTREGAS SITEMA - ATALIZADO EM 18/11/2026"
+  }
+]

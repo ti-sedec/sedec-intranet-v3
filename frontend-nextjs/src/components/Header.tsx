@@ -8,7 +8,11 @@ import { ChevronDown, Menu, X } from "lucide-react";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/noticias", label: "Notícias" },
+];
+
+const INFO_LINKS = [
   { href: "/tutoriais", label: "Tutoriais" },
+  { href: "/paineis", label: "Painéis" },
 ];
 
 const ABOUT_LINK = { href: "/sobre", label: "Sobre" };
@@ -22,16 +26,23 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
   const toolsActive = TOOLS_LINKS.some((l) => pathname === l.href);
+  const infoActive = INFO_LINKS.some((l) => pathname === l.href || pathname.startsWith(`${l.href}/`));
 
   useEffect(() => {
-    if (!toolsOpen) return;
+    if (!toolsOpen && !infoOpen) return;
     const onDown = (e: MouseEvent) => {
       if (!toolsRef.current?.contains(e.target as Node)) setToolsOpen(false);
+      if (!infoRef.current?.contains(e.target as Node)) setInfoOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setToolsOpen(false);
+      if (e.key === "Escape") {
+        setToolsOpen(false);
+        setInfoOpen(false);
+      }
     };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
@@ -39,7 +50,7 @@ export default function Header() {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [toolsOpen]);
+  }, [toolsOpen, infoOpen]);
 
   return (
     <header className="sticky top-0 z-40 bg-[var(--color-bg)] border-b border-[var(--color-border)]">
@@ -73,10 +84,50 @@ export default function Header() {
               </Link>
             );
           })}
+          <div ref={infoRef} className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setInfoOpen((v) => !v);
+                setToolsOpen(false);
+              }}
+              aria-haspopup="menu"
+              aria-expanded={infoOpen}
+              className={`inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                infoActive || infoOpen ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+              }`}
+            >
+              Informações
+              <ChevronDown size={14} className={`transition-transform ${infoOpen ? "rotate-180" : ""}`} />
+            </button>
+            {infoOpen && (
+              <div
+                role="menu"
+                className="absolute right-0 top-full mt-1 min-w-[180px] bg-[var(--color-bg)] border border-[var(--color-border)] border-t-2 border-t-[var(--color-accent)] rounded shadow-lg py-1 z-50"
+              >
+                {INFO_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    role="menuitem"
+                    onClick={() => setInfoOpen(false)}
+                    className={`block no-underline px-4 py-2.5 text-sm font-medium hover:bg-[#ebe7df] ${
+                      pathname === link.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
           <div ref={toolsRef} className="relative">
             <button
               type="button"
-              onClick={() => setToolsOpen((v) => !v)}
+              onClick={() => {
+                setToolsOpen((v) => !v);
+                setInfoOpen(false);
+              }}
               aria-haspopup="menu"
               aria-expanded={toolsOpen}
               className={`inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
@@ -152,6 +203,30 @@ export default function Header() {
               </Link>
             );
           })}
+          <details className="group">
+            <summary
+              className={`list-none cursor-pointer flex items-center justify-between px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                infoActive ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+              }`}
+            >
+              Informações
+              <ChevronDown size={16} className="transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="ml-3 pl-3 border-l-2 border-[var(--color-accent)] flex flex-col">
+              {INFO_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`no-underline px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                    pathname === link.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </details>
           <details className="group">
             <summary
               className={`list-none cursor-pointer flex items-center justify-between px-3 py-3 rounded text-sm font-medium hover:bg-[#ebe7df] ${

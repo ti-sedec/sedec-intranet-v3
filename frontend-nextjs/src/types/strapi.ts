@@ -105,6 +105,15 @@ export interface LinkUtil {
   url: string;
 }
 
+export interface Painel {
+  id: number;
+  documentId: string;
+  setor: string;
+  tema: string;
+  resumo: string | null;
+  link: string;
+}
+
 export interface Aniversariante {
   id: number;
   documentId: string;

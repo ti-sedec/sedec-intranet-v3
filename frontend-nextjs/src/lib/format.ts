@@ -62,3 +62,8 @@ const MONTHS_PT = [
 export function monthLabel(date: Date = new Date()): string {
   return MONTHS_PT[date.getMonth()];
 }
+
+/** Minúsculas e sem acentos/diacríticos — para buscas que ignoram "á" vs "a", "ç" vs "c", etc. */
+export function normalizeText(value: string): string {
+  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+}
