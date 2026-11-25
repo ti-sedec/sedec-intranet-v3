@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 import { PageHeading } from "@/src/components/PageHeading";
 import PaineisList from "@/src/components/PaineisList";
 import { fetchPaineis } from "@/src/lib/strapi";
@@ -16,8 +14,7 @@ export default async function PaineisPage() {
   const lista = await fetchPaineis();
 
   return (
-    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <main className="flex-1 flex flex-col">
 
       <section className="max-w-[1280px] mx-auto w-full px-6 pt-11 pb-18 flex-1">
         <PageHeading
@@ -31,7 +28,6 @@ export default async function PaineisPage() {
         </Suspense>
       </section>
 
-      <Footer />
     </main>
   );
 }

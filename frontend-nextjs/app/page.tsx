@@ -1,8 +1,6 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Link from "next/link";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 import { ArticleCard } from "@/src/components/ArticleCard";
 import { BirthdaysSection } from "@/src/components/BirthdaysSection";
 import { QuickLinksAside } from "@/src/components/QuickLinksAside";
@@ -47,8 +45,7 @@ export default async function Home({
     : { data: [], meta: { pagination: { pageCount: 0 } } };
 
   return (
-    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <main className="flex-1 flex flex-col">
 
       {!featured ? (
         <div className="max-w-[1280px] mx-auto px-6 py-24 text-center text-[var(--color-muted)]">
@@ -141,7 +138,6 @@ export default async function Home({
         </>
       )}
 
-      <Footer />
     </main>
   );
 }

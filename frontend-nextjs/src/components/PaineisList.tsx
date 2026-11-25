@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import Pagination from "@/src/components/Pagination";
+import { SpotlightSurface } from "@/src/components/SpotlightSurface";
+import { Reveal } from "@/src/components/motion/Reveal";
+import { stagger } from "@/src/lib/motion";
 import { normalizeText } from "@/src/lib/format";
 import type { Painel } from "@/src/types/strapi";
 
@@ -94,11 +97,9 @@ export default function PaineisList({ paineis }: { paineis: Painel[] }) {
       ) : (
         <>
           <div className="grid gap-4.5 mb-10" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))" }}>
-            {visible.map((p) => (
-              <article
-                key={p.id}
-                className="text-[var(--color-ink)] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md p-5.5 flex flex-col gap-2.5 min-w-0 hover:border-[var(--color-accent)]"
-              >
+            {visible.map((p, i) => (
+              <Reveal key={p.id} delay={stagger(i, 0.04)} className="min-w-0">
+              <SpotlightSurface className="h-full p-5.5! text-[var(--color-ink)] flex flex-col gap-2.5 min-w-0">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--color-faint-2)]">
                   {p.setor}
                 </span>
@@ -114,7 +115,8 @@ export default function PaineisList({ paineis }: { paineis: Painel[] }) {
                 >
                   Abrir painel <span aria-hidden="true">↗</span>
                 </a>
-              </article>
+              </SpotlightSurface>
+              </Reveal>
             ))}
           </div>
 

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
@@ -22,6 +23,24 @@ const TOOLS_LINKS = [
   { href: "/utilidades/qrcode", label: "Gerador de QR Code" },
 ];
 
+const DROPDOWN_MOTION = {
+  initial: { opacity: 0, y: -6, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -4, scale: 0.98 },
+  transition: { duration: 0.16, ease: [0.22, 1, 0.36, 1] as const },
+};
+
+/** Sublinhado que desliza entre os itens ativos do menu ao navegar. */
+function ActiveUnderline() {
+  return (
+    <motion.span
+      layoutId="nav-underline"
+      className="absolute left-[13px] right-[13px] bottom-[3px] h-[2px] rounded-full bg-[var(--color-accent)]"
+      transition={{ type: "spring", stiffness: 500, damping: 38 }}
+    />
+  );
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -31,6 +50,13 @@ export default function Header() {
   const infoRef = useRef<HTMLDivElement>(null);
   const toolsActive = TOOLS_LINKS.some((l) => pathname === l.href);
   const infoActive = INFO_LINKS.some((l) => pathname === l.href || pathname.startsWith(`${l.href}/`));
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setOpen(false);
+    setToolsOpen(false);
+    setInfoOpen(false);
+  }
 
   useEffect(() => {
     if (!toolsOpen && !infoOpen) return;
@@ -76,11 +102,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`no-underline px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+                className={`relative no-underline px-[13px] py-[9px] rounded text-sm font-medium transition-colors duration-150 hover:bg-[#ebe7df] ${
                   isActive ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
                 }`}
               >
                 {link.label}
+                {isActive && <ActiveUnderline />}
               </Link>
             );
           })}
@@ -93,15 +120,18 @@ export default function Header() {
               }}
               aria-haspopup="menu"
               aria-expanded={infoOpen}
-              className={`inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+              className={`relative inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium transition-colors duration-150 hover:bg-[#ebe7df] ${
                 infoActive || infoOpen ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
               }`}
             >
               Informações
-              <ChevronDown size={14} className={`transition-transform ${infoOpen ? "rotate-180" : ""}`} />
+              <ChevronDown size={14} className={`transition-transform duration-200 ${infoOpen ? "rotate-180" : ""}`} />
+              {infoActive && <ActiveUnderline />}
             </button>
+            <AnimatePresence>
             {infoOpen && (
-              <div
+              <motion.div
+                {...DROPDOWN_MOTION}
                 role="menu"
                 className="absolute right-0 top-full mt-1 min-w-[180px] bg-[var(--color-bg)] border border-[var(--color-border)] border-t-2 border-t-[var(--color-accent)] rounded shadow-lg py-1 z-50"
               >
@@ -118,8 +148,9 @@ export default function Header() {
                     {link.label}
                   </Link>
                 ))}
-              </div>
+              </motion.div>
             )}
+            </AnimatePresence>
           </div>
           <div ref={toolsRef} className="relative">
             <button
@@ -130,15 +161,18 @@ export default function Header() {
               }}
               aria-haspopup="menu"
               aria-expanded={toolsOpen}
-              className={`inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+              className={`relative inline-flex items-center gap-1 px-[13px] py-[9px] rounded text-sm font-medium transition-colors duration-150 hover:bg-[#ebe7df] ${
                 toolsActive || toolsOpen ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
               }`}
             >
               Utilidades
-              <ChevronDown size={14} className={`transition-transform ${toolsOpen ? "rotate-180" : ""}`} />
+              <ChevronDown size={14} className={`transition-transform duration-200 ${toolsOpen ? "rotate-180" : ""}`} />
+              {toolsActive && <ActiveUnderline />}
             </button>
+            <AnimatePresence>
             {toolsOpen && (
-              <div
+              <motion.div
+                {...DROPDOWN_MOTION}
                 role="menu"
                 className="absolute right-0 top-full mt-1 min-w-[180px] bg-[var(--color-bg)] border border-[var(--color-border)] border-t-2 border-t-[var(--color-accent)] rounded shadow-lg py-1 z-50"
               >
@@ -155,16 +189,18 @@ export default function Header() {
                     {link.label}
                   </Link>
                 ))}
-              </div>
+              </motion.div>
             )}
+            </AnimatePresence>
           </div>
           <Link
             href={ABOUT_LINK.href}
-            className={`no-underline px-[13px] py-[9px] rounded text-sm font-medium hover:bg-[#ebe7df] ${
+            className={`relative no-underline px-[13px] py-[9px] rounded text-sm font-medium transition-colors duration-150 hover:bg-[#ebe7df] ${
               pathname === ABOUT_LINK.href ? "text-[var(--color-accent)]" : "text-[var(--color-ink)]"
             }`}
           >
             {ABOUT_LINK.label}
+            {pathname === ABOUT_LINK.href && <ActiveUnderline />}
           </Link>
           <Link
             href="/eventos"
@@ -186,8 +222,16 @@ export default function Header() {
         </button>
       </div>
 
+      <AnimatePresence initial={false}>
       {open && (
-        <nav id="mobile-nav" className="lg:hidden border-t border-[var(--color-border)] px-6 py-3 flex flex-col gap-1">
+        <motion.nav
+          id="mobile-nav"
+          initial={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
+          animate={{ height: "auto", opacity: 1, paddingTop: 12, paddingBottom: 12 }}
+          exit={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
+          transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:hidden overflow-hidden border-t border-[var(--color-border)] px-6 py-3 flex flex-col gap-1"
+        >
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -267,8 +311,9 @@ export default function Header() {
           >
             Agenda
           </Link>
-        </nav>
+        </motion.nav>
       )}
+      </AnimatePresence>
 
       <div
         className="h-[2px]"

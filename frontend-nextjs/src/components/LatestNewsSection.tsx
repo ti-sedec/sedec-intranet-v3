@@ -3,6 +3,8 @@
 import { useState, useTransition } from "react";
 import { ArticleCard } from "@/src/components/ArticleCard";
 import Pagination from "@/src/components/Pagination";
+import { Reveal } from "@/src/components/motion/Reveal";
+import { stagger } from "@/src/lib/motion";
 import { getLatestArticles } from "@/src/app/actions";
 import type { Article } from "@/src/types/strapi";
 
@@ -49,8 +51,10 @@ export function LatestNewsSection({
         className={`grid gap-6.5 transition-opacity ${isPending ? "opacity-50" : ""}`}
         style={{ gridTemplateColumns: "repeat(auto-fill, minmax(248px, 1fr))" }}
       >
-        {articles.map((a) => (
-          <ArticleCard key={a.id} article={a} variant="grid" />
+        {articles.map((a, i) => (
+          <Reveal key={`${page}-${a.id}`} delay={stagger(i, 0.07)} className="min-w-0">
+            <ArticleCard article={a} variant="grid" />
+          </Reveal>
         ))}
       </div>
 

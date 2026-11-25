@@ -5,8 +5,6 @@ import { readingTime, headings } from "@/src/lib/format";
 import { Blocks } from "@/src/components/Blocks";
 import { DetailHeader } from "@/src/components/DetailHeader";
 import { TutorialIndex } from "@/src/components/TutorialIndex";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 
 export const dynamic = "force-dynamic";
 
@@ -32,8 +30,7 @@ export default async function TutorialPage({ params }: { params: Promise<{ slug:
   const index = headings(tutorial.conteudo);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <div className="flex-1 flex flex-col">
       <article className="flex-1">
         <DetailHeader
           backHref="/tutoriais"
@@ -59,7 +56,6 @@ export default async function TutorialPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </article>
-      <Footer />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 import { PageHeading } from "@/src/components/PageHeading";
 import { CategoryPills } from "@/src/components/CategoryPills";
 import { ArticleCard } from "@/src/components/ArticleCard";
+import { Reveal } from "@/src/components/motion/Reveal";
+import { stagger } from "@/src/lib/motion";
 import Pagination from "@/src/components/Pagination";
 import { fetchArticles, fetchCategories } from "@/src/lib/strapi";
 
@@ -28,8 +28,7 @@ export default async function NoticiasPage({
   const basePath = categorySlug ? `/noticias?categoria=${categorySlug}` : "/noticias";
 
   return (
-    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <main className="flex-1 flex flex-col">
 
       <section className="max-w-[1280px] mx-auto w-full px-6 pt-11 pb-18 flex-1">
         <PageHeading
@@ -46,8 +45,10 @@ export default async function NoticiasPage({
           </div>
         ) : (
           <div className="flex flex-col">
-            {articles.map((article) => (
-              <ArticleCard key={article.id} article={article} variant="row" />
+            {articles.map((article, i) => (
+              <Reveal key={article.id} delay={stagger(i, 0.05)}>
+                <ArticleCard article={article} variant="row" />
+              </Reveal>
             ))}
           </div>
         )}
@@ -59,7 +60,6 @@ export default async function NoticiasPage({
         </section>
       )}
 
-      <Footer />
     </main>
   );
 }

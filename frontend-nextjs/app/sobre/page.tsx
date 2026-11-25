@@ -4,8 +4,6 @@ import { Blocks } from "@/src/components/Blocks";
 import { DetailHeader } from "@/src/components/DetailHeader";
 import { FeaturedArticlesAside } from "@/src/components/FeaturedArticlesAside";
 import { BirthdaysAside } from "@/src/components/BirthdaysAside";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 
 export const metadata = {
   title: "Sobre | SEDEC.NEWS",
@@ -26,8 +24,7 @@ export default async function SobrePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <div className="flex-1 flex flex-col">
       <article className="flex-1">
         <DetailHeader
           backHref="/"
@@ -54,7 +51,6 @@ export default async function SobrePage() {
           </aside>
         </div>
       </article>
-      <Footer />
     </div>
   );
 }

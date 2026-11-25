@@ -1,5 +1,6 @@
 import type { LinkUtil } from "@/src/types/strapi";
 import { hostFromUrl } from "@/src/lib/format";
+import { SpotlightSurface } from "@/src/components/SpotlightSurface";
 
 export function LinkCard({ link }: { link: LinkUtil }) {
   return (
@@ -7,8 +8,9 @@ export function LinkCard({ link }: { link: LinkUtil }) {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="no-underline text-[var(--color-ink)] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md p-5.5 flex flex-col gap-2.5 min-w-0 hover:border-[var(--color-accent)]"
+      className="no-underline block h-full min-w-0 text-[var(--color-ink)] rounded-md"
     >
+      <SpotlightSurface className="h-full p-5.5! flex flex-col gap-2.5 min-w-0">
       <div className="flex items-center gap-2.5">
         {link.grupo && (
           <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--color-faint-2)]">
@@ -24,6 +26,7 @@ export function LinkCard({ link }: { link: LinkUtil }) {
       <span className="font-mono text-[11px] break-all" style={{ color: "var(--color-link)" }}>
         {hostFromUrl(link.url)}
       </span>
+      </SpotlightSurface>
     </a>
   );
 }

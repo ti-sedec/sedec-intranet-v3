@@ -9,8 +9,6 @@ import { DetailHeader } from '@/src/components/DetailHeader';
 import { RelatedArticles } from '@/src/components/RelatedArticles';
 import { FeaturedArticlesAside } from '@/src/components/FeaturedArticlesAside';
 import { BirthdaysAside } from '@/src/components/BirthdaysAside';
-import Header from '@/src/components/Header';
-import Footer from '@/src/components/Footer';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -40,8 +38,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <div className="flex-1 flex flex-col">
       <article className="flex-1">
         <DetailHeader
           backHref="/noticias"
@@ -82,7 +79,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </aside>
         </div>
       </article>
-      <Footer />
     </div>
   );
 }

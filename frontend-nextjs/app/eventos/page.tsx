@@ -1,6 +1,4 @@
 import React, { Suspense } from "react";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 import { PageHeading } from "@/src/components/PageHeading";
 import { fetchGlobal } from "@/src/lib/strapi";
 
@@ -61,8 +59,7 @@ async function CalendarWidget() {
 
 export default function EventosPage() {
   return (
-    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <main className="flex-1 flex flex-col">
 
       <section className="max-w-[1280px] mx-auto w-full px-6 pt-11 pb-8">
         <PageHeading
@@ -80,7 +77,6 @@ export default function EventosPage() {
         </div>
       </div>
 
-      <Footer />
     </main>
   );
 }

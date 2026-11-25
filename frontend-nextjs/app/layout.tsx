@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
+import { MotionProvider } from "@/src/components/motion/MotionProvider";
 
 const archivo = Archivo({
   variable: "--font-display",
@@ -39,7 +42,13 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${archivo.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        {children}
+        <MotionProvider>
+          <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
+            <Header />
+            {children}
+            <Footer />
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { fetchGlobal } from "@/src/lib/strapi";
 import { SUPPORT_EMAIL } from "@/src/lib/constants";
+import { isChristmasSeason } from "@/src/lib/season";
+import { ChristmasSnow } from "@/src/components/ChristmasSnow";
 
 export default async function Footer() {
   const global = await fetchGlobal();
@@ -8,8 +10,9 @@ export default async function Footer() {
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
   return (
-    <footer className="bg-[var(--color-ink)] text-white mt-auto">
-      <div className="max-w-[1280px] mx-auto px-6 py-12 grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden bg-[var(--color-ink)] text-white mt-auto">
+      {isChristmasSeason() && <ChristmasSnow count={2000} opacity={0.7} />}
+      <div className="relative max-w-[1280px] mx-auto px-6 py-12 grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div className="min-w-0 md:col-span-2">
           <div className="flex items-center gap-3 mb-3.5">
             <span className="w-9 h-9 rounded-[3px] bg-[var(--color-accent)] text-white grid place-items-center font-mono font-semibold text-xs">
@@ -53,7 +56,7 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-[var(--color-navy-border)]">
+      <div className="relative border-t border-[var(--color-navy-border)]">
         <div className="max-w-[1280px] mx-auto px-6 py-4.5 flex gap-4 flex-wrap font-mono text-[11px] tracking-[0.08em] uppercase text-[#9297a6]">
           <span>© {year} SEDEC · Uso interno</span>
           <span className="ml-auto">Desenvolvido pela TI SEDEC</span>

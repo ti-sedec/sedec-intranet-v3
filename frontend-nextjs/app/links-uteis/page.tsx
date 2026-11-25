@@ -1,7 +1,7 @@
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
 import { PageHeading } from "@/src/components/PageHeading";
 import { LinkCard } from "@/src/components/LinkCard";
+import { Reveal } from "@/src/components/motion/Reveal";
+import { stagger } from "@/src/lib/motion";
 import { fetchLinksUteis } from "@/src/lib/strapi";
 
 export const metadata = {
@@ -15,8 +15,7 @@ export default async function LinksUteisPage() {
   const links = await fetchLinksUteis();
 
   return (
-    <main className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
-      <Header />
+    <main className="flex-1 flex flex-col">
 
       <section className="max-w-[1280px] mx-auto w-full px-6 pt-11 pb-18 flex-1">
         <PageHeading
@@ -31,14 +30,15 @@ export default async function LinksUteisPage() {
           </div>
         ) : (
           <div className="grid gap-4.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))" }}>
-            {links.map((l) => (
-              <LinkCard key={l.id} link={l} />
+            {links.map((l, i) => (
+              <Reveal key={l.id} delay={stagger(i, 0.04)} className="min-w-0">
+                <LinkCard link={l} />
+              </Reveal>
             ))}
           </div>
         )}
       </section>
 
-      <Footer />
     </main>
   );
 }

@@ -6,6 +6,7 @@ import type { Article } from "@/src/types/strapi";
 import { getStrapiMedia } from "@/src/lib/strapi";
 import { readingTime } from "@/src/lib/format";
 import { CoverPlaceholder } from "./CoverPlaceholder";
+import GlareHover from "@/src/components/react-bits/GlareHover";
 
 type Variant = "featured" | "compact" | "grid" | "row";
 
@@ -63,6 +64,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
               className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               priority
             />
+            <GlareHover width="100%" height="100%" borderRadius="0px" glareColor="#ffffff" glareOpacity={0.6} blendMode="normal" variant="streak" glareSize={24} rimGlint={false} transitionDuration={800} className="absolute! inset-0 z-10" />
           </div>
         ) : (
           <CoverPlaceholder label="foto de capa" ratio="16/8" className="rounded-none border-0" />
@@ -113,6 +115,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
+            <GlareHover width="100%" height="100%" borderRadius="0px" glareColor="#ffffff" glareOpacity={0.6} blendMode="normal" variant="streak" glareSize={24} rimGlint={false} transitionDuration={800} className="absolute! inset-0 z-10" />
           </div>
         ) : (
           <CoverPlaceholder label="foto de capa" className="max-w-[320px]" />
@@ -147,6 +150,7 @@ export function ArticleCard({ article, variant = "grid" }: { article: Article; v
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
+          <GlareHover width="100%" height="100%" borderRadius="0px" glareColor="#ffffff" glareOpacity={0.6} blendMode="normal" variant="streak" glareSize={24} rimGlint={false} transitionDuration={800} className="absolute! inset-0 z-10" />
         </div>
       ) : (
         <CoverPlaceholder label="foto de capa" className="mb-3.5" />
