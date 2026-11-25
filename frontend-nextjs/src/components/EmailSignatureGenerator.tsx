@@ -8,11 +8,11 @@ const LINE_COLOR = "#adb5bd";
 const FONT = "Arial, Helvetica, sans-serif";
 
 const DEFAULT_ADDRESS =
-  "Rua Engº Edgard Prado, s/nº - Centro Político Administrativo\nCuiabá/MT, CEP: 78.049-910";
+  "Rua Engº Edgard Prado, Nº 215 - Centro Político Administrativo\nCuiabá/MT, CEP: 78.049-909";
 
 // Geometria lógica (px). O canvas é desenhado em SCALE× para ficar nítido em telas retina.
 const W = 600;
-const SCALE = 2;
+const SCALE = 1;
 const BLOCK_W = W * 0.4; // coluna esquerda (nome + telefone): 40% da largura; o resto (60%) é logo + endereço
 const TOP_H = 70;
 const LINE_H = 3;
