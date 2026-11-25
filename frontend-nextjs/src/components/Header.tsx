@@ -21,6 +21,7 @@ const ABOUT_LINK = { href: "/sobre", label: "Sobre" };
 const TOOLS_LINKS = [
   { href: "/links-uteis", label: "Links úteis" },
   { href: "/utilidades/qrcode", label: "Gerador de QR Code" },
+  { href: "/utilidades/assinatura-email", label: "Assinatura de e-mail" },
 ];
 
 const DROPDOWN_MOTION = {
